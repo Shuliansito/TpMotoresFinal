@@ -23,13 +23,13 @@ public class MouseLook : MonoBehaviour
         float mouseX = mouseLook.x * mouseSensitivity;
         float mouseY = mouseLook.y * mouseSensitivity;
 
-        // Rotación vertical de la cámara
+       
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
-        // Rotación horizontal del jugador
+      
         playerBody.Rotate(Vector3.up * mouseX);
     }
 }
