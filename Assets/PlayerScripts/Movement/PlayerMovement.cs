@@ -24,16 +24,21 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         
+
         _sprinting = Run.action.IsPressed();
+        _movingSpeed = player.PlayerGetSpeed();
         _movingDirection = Move.action.ReadValue<Vector2>();
     }
     void FixedUpdate()
     {
-        if (_sprinting)
-        {
-            _movingSpeed*=1.5f;
-        }
-        else {_movingSpeed=player.PlayerGetSpeed();}
-            rb.velocity = new Vector3(_movingDirection.x * _movingSpeed, 0, _movingDirection.y * _movingSpeed);
+        Vector3 direction =
+            transform.right * _movingDirection.x +
+            transform.forward * _movingDirection.y;
+
+        rb.velocity = new Vector3(
+            direction.x * _movingSpeed,
+            rb.velocity.y,  
+            direction.z * _movingSpeed
+        );
     }
 }
