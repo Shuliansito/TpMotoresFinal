@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private bool _ismoving;
     [SerializeField]private bool _interacting;
     [SerializeField]private float _movingSpeed;
+    [SerializeField] public float PlayerStamina;
 
     public InputActionReference Move;
     public InputActionReference Run;
@@ -27,6 +28,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+     if(_sprinting){
+    Player.UpdateStamina(1.5f*Time.deltaTime)
+}
+
+PlayerStamina=Player.GetStamina();
 
         
 
