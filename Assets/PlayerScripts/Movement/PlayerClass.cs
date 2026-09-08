@@ -7,7 +7,7 @@ public class PlayerClass
     private float speed;
     private float health;
     private float damage;
-
+    private float _stamina =100.0f;
     public PlayerClass(float speed, float health)
     {
         this.speed = speed;
@@ -34,5 +34,13 @@ public class PlayerClass
             health-=dm;
         }
     }
+    
+    public float GetStamina(){
+        return _stamina;
+    }
+
+    public void UpdateStamina(float num){
+        _stamina+=num
+}
     
 }
