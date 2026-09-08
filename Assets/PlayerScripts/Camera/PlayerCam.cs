@@ -18,18 +18,22 @@ public class MouseLook : MonoBehaviour
 
     private void Update()
     {
-        Vector2 mouseLook = Mouse.current.delta.ReadValue();
+        if (Time.timeScale != 0.0f)
+        {
+            Vector2 mouseLook = Mouse.current.delta.ReadValue();
 
-        float mouseX = mouseLook.x * mouseSensitivity;
-        float mouseY = mouseLook.y * mouseSensitivity;
+            float mouseX = mouseLook.x * mouseSensitivity;
+            float mouseY = mouseLook.y * mouseSensitivity;
 
+
+            xRotation -= mouseY;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+
+            transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+
+
+            playerBody.Rotate(Vector3.up * mouseX);
+        }
        
-        xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
-      
-        playerBody.Rotate(Vector3.up * mouseX);
     }
 }
