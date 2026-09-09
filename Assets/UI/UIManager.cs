@@ -4,13 +4,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public InputActionReference _pauseMenu;
     private bool _isPaused;
     public GameObject pauseUI;
-
+    public PlayerMovement _player;
+    public Slider _slider;
     private void Update()
     {
         if (_pauseMenu.action.WasPressedThisFrame())
@@ -18,6 +20,8 @@ public class UIManager : MonoBehaviour
             UpdateCursorState();
             pauseUI.SetActive(_isPaused);
         }
+        _slider.value = _player.PlayerStamina;
+
     }
 
     private void UpdateCursorState()

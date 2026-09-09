@@ -40,7 +40,7 @@ public class PlayerClass
     }
 
     public void UpdateStamina(float num){
-        _stamina+=num
+        _stamina -= num;
 }
     
 }
