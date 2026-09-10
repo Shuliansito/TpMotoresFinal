@@ -7,7 +7,7 @@ public class PlayerClass
     private float speed;
     private float health;
     private float damage;
-    private float _stamina =100.0f;
+    private float _stamina = 100.0f;
     public PlayerClass(float speed, float health)
     {
         this.speed = speed;
@@ -31,16 +31,21 @@ public class PlayerClass
     {
         if (dm > 0)
         {
-            health-=dm;
+            health -= dm;
         }
     }
-    
-    public float GetStamina(){
+
+    public float GetStamina()
+    {
         return _stamina;
     }
-
-    public void UpdateStamina(float num){
-        _stamina -= num;
-}
-    
+    public void SetStamina(float stam)
+    {
+        _stamina=stam;
+    }
+    public void UpdateStamina(float num)
+    {
+        _stamina += num;
+        _stamina = Mathf.Clamp(_stamina, 0.0f, 100.0f);
+    }
 }

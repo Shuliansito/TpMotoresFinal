@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -17,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private bool _interacting;
     [SerializeField]private float _movingSpeed;
     [SerializeField] public float PlayerStamina;
-    [SerializeField] public GameObject _slider;
+    [SerializeField] public GameObject StaminaSlider;
 
     public InputActionReference Move;
     public InputActionReference Run;
@@ -29,28 +30,53 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(_sprinting){
-            player.UpdateStamina(25f * Time.deltaTime);
+        _movingDirection = Move.action.ReadValue<Vector2>();
+
+        if (_movingDirection.x != 0 || _movingDirection.y != 0)
+        {
+            _ismoving = true;
+        }
+        else
+        {
+            _ismoving = false;
         }
 
-        PlayerStamina=player.GetStamina();
+        #region Sprinting & Stamina
 
-        
+        PlayerStamina = player.GetStamina();
 
-        _movingSpeed = player.PlayerGetSpeed();
-        _movingDirection = Move.action.ReadValue<Vector2>();
-        if (Interact.action.WasPressedThisFrame()) { Debug.Log("Interact"); }
-
-        if (_movingDirection.x != 0 || _movingDirection.y != 0) { _ismoving = true; }
-        else { _ismoving = false; }
-        if (Run.action.IsPressed() && _ismoving)
+        if (Run.action.IsPressed() && _ismoving && PlayerStamina > 0)
         {
             cam.fieldOfView = 63;
-            _sprinting=true;
-            _movingSpeed = player.PlayerGetSpeed()*1.5f;
+            _sprinting = true;
+            _movingSpeed = player.PlayerGetSpeed() * 1.5f;
         }
-        else { cam.fieldOfView = 60; _sprinting = false; }
+        else
+        {
+            cam.fieldOfView = 60;
+            _sprinting = false;
+            _movingSpeed = player.PlayerGetSpeed();
+        }
 
+        if (_sprinting)
+        {
+            player.UpdateStamina(-25.0f * Time.deltaTime);
+            StaminaSlider.SetActive(true);
+        }
+
+        if (!_sprinting && !_ismoving)
+        {
+            player.UpdateStamina(10.0f * Time.deltaTime);
+        }
+
+        PlayerStamina = player.GetStamina();
+
+        #endregion
+
+        if (Interact.action.WasPressedThisFrame())
+        {
+            Debug.Log("Interact");
+        }
     }
     void FixedUpdate()
     {
