@@ -27,13 +27,20 @@ public class PlayerClass
         return damage;
     }
 
-    public void PlayerHurt(float dm)
+    public void Hurt(float dm)
     {
         if (dm > 0)
         {
             health -= dm;
         }
+        health= Mathf.Clamp(health, 0.0f, 100.0f);
     }
+    public void HealthLimit()
+    {
+        
+        health = Mathf.Clamp(health, 0.0f, 100.0f);
+    }
+
 
     public float GetStamina()
     {

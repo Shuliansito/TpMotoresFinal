@@ -5,10 +5,11 @@ using Unity.IO.LowLevel.Unsafe;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PlayerClass player;
+
 
     public Rigidbody rb;
     public Camera cam;
@@ -17,19 +18,28 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]private bool _ismoving;
     [SerializeField]private bool _interacting;
     [SerializeField]private float _movingSpeed;
-    [SerializeField] public float PlayerStamina;
-    [SerializeField] public GameObject StaminaSlider;
+    public float PlayerStamina;
+    public GameObject StaminaSlider;
+    public float PlayerHealth;
+    public GameObject HealthSlider;
+    [SerializeField]public PlayerClass player = new(5f, 100f);
 
     public InputActionReference Move;
     public InputActionReference Run;
     public InputActionReference Interact;
-    void Start()
+    public InputActionReference Hurt;
+    void Awake()
     {
-        player = new PlayerClass(5f, 100f);
+        PlayerStamina = player.GetStamina();
+        PlayerHealth = player.PlayerGetHealth();
+
     }
 
     private void Update()
     {
+        player.HealthLimit();
+        
+        #region Movement
         _movingDirection = Move.action.ReadValue<Vector2>();
 
         if (_movingDirection.x != 0 || _movingDirection.y != 0)
@@ -40,12 +50,13 @@ public class PlayerMovement : MonoBehaviour
         {
             _ismoving = false;
         }
+        #endregion
 
         #region Sprinting & Stamina
 
         PlayerStamina = player.GetStamina();
 
-        if (Run.action.IsPressed() && _ismoving && PlayerStamina > 0)
+        if (Run.action.IsPressed() && _ismoving && PlayerStamina > 0.5)
         {
             cam.fieldOfView = 63;
             _sprinting = true;
@@ -60,23 +71,31 @@ public class PlayerMovement : MonoBehaviour
 
         if (_sprinting)
         {
-            player.UpdateStamina(-25.0f * Time.deltaTime);
+            player.UpdateStamina(-10.0f * Time.deltaTime);
             StaminaSlider.SetActive(true);
         }
 
-        if (!_sprinting && !_ismoving)
+        if (!_sprinting&&!_ismoving)
         {
-            player.UpdateStamina(10.0f * Time.deltaTime);
+            player.UpdateStamina(20.0f * Time.deltaTime);
         }
 
-        PlayerStamina = player.GetStamina();
 
         #endregion
 
+        #region Health
+
+        PlayerHealth=player.PlayerGetHealth();
+
+
+
+        #endregion
         if (Interact.action.WasPressedThisFrame())
         {
             Debug.Log("Interact");
         }
+        if (Hurt.action.WasPressedThisFrame()) { player.Hurt(10f); }
+        if (PlayerHealth <= 0) { SceneManager.LoadScene(sceneName: "Prototype Map"); }
     }
     void FixedUpdate()
     {
