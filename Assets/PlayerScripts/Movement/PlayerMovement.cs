@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -22,12 +23,15 @@ public class PlayerMovement : MonoBehaviour
     public GameObject StaminaSlider;
     public float PlayerHealth;
     public GameObject HealthSlider;
-    [SerializeField]public PlayerClass player = new(5f, 100f);
+    public PlayerClass player = new(5f, 100f);
+    public GameObject _dotCrosshair;
+    public GameObject _interactCrosshair;
 
     public InputActionReference Move;
     public InputActionReference Run;
-    public InputActionReference Interact;
     public InputActionReference Hurt;
+
+
     void Awake()
     {
         PlayerStamina = player.GetStamina();
@@ -50,11 +54,13 @@ public class PlayerMovement : MonoBehaviour
         {
             _ismoving = false;
         }
-        #endregion
 
-        #region Sprinting & Stamina
 
-        PlayerStamina = player.GetStamina();
+            #endregion
+
+            #region Sprinting & Stamina
+
+            PlayerStamina = player.GetStamina();
 
         if (Run.action.IsPressed() && _ismoving && PlayerStamina > 0.5)
         {
@@ -85,15 +91,10 @@ public class PlayerMovement : MonoBehaviour
 
         #region Health
 
-        PlayerHealth=player.PlayerGetHealth();
-
-
+        PlayerHealth =player.PlayerGetHealth();
 
         #endregion
-        if (Interact.action.WasPressedThisFrame())
-        {
-            Debug.Log("Interact");
-        }
+
         if (Hurt.action.WasPressedThisFrame()) { player.Hurt(10f); }
         if (PlayerHealth <= 0) { SceneManager.LoadScene(sceneName: "Prototype Map"); }
     }

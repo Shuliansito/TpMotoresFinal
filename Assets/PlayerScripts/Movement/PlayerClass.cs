@@ -27,6 +27,10 @@ public class PlayerClass
         return damage;
     }
 
+    public void healing(float heal)
+    {
+        if (health > 0) { health += heal; }
+    }
     public void Hurt(float dm)
     {
         if (dm > 0)

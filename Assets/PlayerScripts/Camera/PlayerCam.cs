@@ -16,7 +16,7 @@ public class MouseLook : MonoBehaviour
         Cursor.visible = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (Time.timeScale != 0.0f)
         {

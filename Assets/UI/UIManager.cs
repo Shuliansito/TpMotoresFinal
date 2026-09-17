@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     public Slider _staminaSlider;
     public Slider _healthSlider;
 
+
     [SerializeField] private float StaminaTimer=-1;
     [SerializeField] private float _lastStamina;
     [SerializeField] private float HealthTimer=-1;
@@ -26,16 +27,17 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("Start");
+       // Debug.Log("Start");
         _lastHealth=_player.player.PlayerGetHealth();
-        Debug.Log("Ultima Vida: "+_lastHealth);
+       // Debug.Log("Ultima Vida: "+_lastHealth);
         _lastStamina=_player.player.GetStamina();
-        Debug.Log("Ultima Vida: " + _lastStamina);
+        //Debug.Log("Ultima Vida: " + _lastStamina);
 
-        Debug.Log("Termina el Start");
+       // Debug.Log("Termina el Start");
     }
     private void Update()
     {
+
         //Pause menu check
         if (_pauseMenu.action.WasPressedThisFrame())
         {
@@ -51,7 +53,7 @@ public class UIManager : MonoBehaviour
         //Check if stamina changed
         if (_player.PlayerStamina != _lastStamina)
         {
-            Debug.Log("Desigualdad Stamina: "+_player.PlayerStamina+" /-/ "+_lastStamina);
+            //Debug.Log("Desigualdad Stamina: "+_player.PlayerStamina+" /-/ "+_lastStamina);
             StaminaTimer = 2.0f;
             StaminaSliderGO.SetActive(true);
         }
@@ -72,7 +74,7 @@ public class UIManager : MonoBehaviour
         #endregion
         if (_player.PlayerHealth != _lastHealth)
         {
-           Debug.Log("Desigualdad Vida: " + _player.PlayerHealth + " /-/ " + _lastHealth); 
+           //Debug.Log("Desigualdad Vida: " + _player.PlayerHealth + " /-/ " + _lastHealth); 
             HealthTimer = 5.0f;
             HealthSliderGO.SetActive(true);
         }
