@@ -10,25 +10,54 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-
-
-    public Rigidbody rb;
-    public Camera cam;
-    [SerializeField]private Vector2 _movingDirection;
-    [SerializeField]private bool _sprinting;
-    [SerializeField]private bool _ismoving;
-    [SerializeField]private bool _interacting;
-    [SerializeField]private float _movingSpeed;
-    public float PlayerStamina;
-    public GameObject StaminaSlider;
-    public float PlayerHealth;
-    public GameObject HealthSlider;
     public PlayerClass player = new(5f, 100f);
+
+    [Header("Player Stats")]
+    public Rigidbody rb;
+    public float PlayerStamina;
+    public float PlayerHealth;
+    
+    
+
+    [Header ("Movement")]
+    [Tooltip("Direction where the player is moving")]
+    [SerializeField] private Vector2 _movingDirection;
+
+
+    [Tooltip("Movement speed")]
+    [Range(0f, 10f)]
+    [SerializeField] private float _movingSpeed;
+
+
+    [Tooltip("Detects if player is moving")]
+    [SerializeField] private bool _ismoving;
+
+
+    [Tooltip("Detects if player is sprinting")]
+    [SerializeField] private bool _sprinting;
+
+
+    [Tooltip("Move input action")]
+    public InputActionReference Move;
+
+
+    [Tooltip("Run input action")]
+    public InputActionReference Run;
+
+
+
+    
+
+    [Header("UI References")]
+
+    public GameObject StaminaSlider;
+    public GameObject HealthSlider;
+    public Camera cam;
     public GameObject _dotCrosshair;
     public GameObject _interactCrosshair;
 
-    public InputActionReference Move;
-    public InputActionReference Run;
+    [Header("Place Holders")]
+    [SerializeField] private bool _interacting;
     public InputActionReference Hurt;
 
 
@@ -42,25 +71,43 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         player.HealthLimit();
+
+        UpdatePlayerStats();
+        MovementLogic();
+        RunningLogic();
+
         
-        #region Movement
-        _movingDirection = Move.action.ReadValue<Vector2>();
+        if (Hurt.action.WasPressedThisFrame()) { player.Hurt(10f); }
 
-        if (_movingDirection.x != 0 || _movingDirection.y != 0)
-        {
-            _ismoving = true;
-        }
-        else
-        {
-            _ismoving = false;
-        }
+        player.DetectDeath();
+    }
+    void FixedUpdate()
+    {
+        MovePlayer();
+    }
 
+    private void MovePlayer()
+    {
+        Vector3 direction =
+            transform.right * _movingDirection.x +
+            transform.forward * _movingDirection.y;
 
-            #endregion
+        rb.velocity = new Vector3(
+            direction.x * _movingSpeed,
+            rb.velocity.y,
+            direction.z * _movingSpeed
+        );
+    }
 
-            #region Sprinting & Stamina
+    private void UpdatePlayerStats()
+    {
+        PlayerHealth = player.PlayerGetHealth();
+        PlayerStamina = player.GetStamina();
+    }
 
-            PlayerStamina = player.GetStamina();
+    private void RunningLogic()
+    {
+        
 
         if (Run.action.IsPressed() && _ismoving && PlayerStamina > 0.5)
         {
@@ -81,34 +128,26 @@ public class PlayerMovement : MonoBehaviour
             StaminaSlider.SetActive(true);
         }
 
-        if (!_sprinting&&!_ismoving)
+        if (!_sprinting && !_ismoving)
         {
             player.UpdateStamina(20.0f * Time.deltaTime);
         }
-
-
-        #endregion
-
-        #region Health
-
-        PlayerHealth =player.PlayerGetHealth();
-
-        #endregion
-
-        if (Hurt.action.WasPressedThisFrame()) { player.Hurt(10f); }
-        if (PlayerHealth <= 0) { SceneManager.LoadScene(sceneName: "Prototype Map"); }
     }
-    void FixedUpdate()
+
+    private void MovementLogic()
     {
-        Vector3 direction =
-            transform.right * _movingDirection.x +
-            transform.forward * _movingDirection.y;
+        _movingDirection = Move.action.ReadValue<Vector2>();
 
-        rb.velocity = new Vector3(
-            direction.x * _movingSpeed,
-            rb.velocity.y,  
-            direction.z * _movingSpeed
-        );
+        if (_movingDirection.x != 0 || _movingDirection.y != 0)
+        {
+            _ismoving = true;
+        }
+        else
+        {
+            _ismoving = false;
+        }
     }
+
+
     
 }

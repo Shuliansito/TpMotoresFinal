@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerClass
 {
@@ -58,5 +59,11 @@ public class PlayerClass
     {
         _stamina += num;
         _stamina = Mathf.Clamp(_stamina, 0.0f, 100.0f);
+    }
+
+    //TODO: Mejorar el sistema de muerte a medida avanza el proyecto
+    public void DetectDeath()
+    {
+        if (health <= 0) { SceneManager.LoadScene(sceneName: "Main Menu"); Cursor.visible = true; Cursor.lockState = CursorLockMode.None; }
     }
 }
