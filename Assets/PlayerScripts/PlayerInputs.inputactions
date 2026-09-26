@@ -140,6 +140,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c90b6d96-9175-4100-9ddf-698e21a960f5",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Run",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1e8d8c74-bad7-402f-836f-135b3b4d5347",
                     "path": "<Mouse>/delta",
                     "interactions": "",
@@ -162,11 +173,11 @@
                 },
                 {
                     "name": "",
-                    "id": "6fa41988-8eb2-4703-8d94-f47d0e4d0fd0",
-                    "path": "<Gamepad>/buttonSouth",
+                    "id": "67b3ad04-6837-457f-992a-5c2a5eb78729",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Controller",
+                    "groups": "",
                     "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
