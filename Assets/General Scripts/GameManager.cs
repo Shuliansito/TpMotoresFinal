@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
@@ -17,6 +18,10 @@ public class GameManager : MonoBehaviour
     private PlayerMovement pm;
 
 
+    private void Awake()
+    {
+        InputSystem.settings.maxEventBytesPerUpdate = 0;
+    }
     private void Start()
     {
         StartGame(1);
@@ -40,6 +45,12 @@ public class GameManager : MonoBehaviour
         foreach(GameObject item in lst_consumables)
         {
             Destroy(item);
+            
+        }
+        foreach (GameObject item in lst_enemies)
+        {
+            Destroy(item);
+
         }
 
         lst_consumables.Add(Instantiate(consumablePrefab, new Vector3(1.6f, 1.1f, 7.5f), Quaternion.identity));

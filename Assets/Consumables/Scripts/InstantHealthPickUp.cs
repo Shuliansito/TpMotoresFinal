@@ -33,7 +33,7 @@ public class InstantHealthPickUp : MonoBehaviour,IInteracrable
             return; 
         }
 
-        _player.playerClass.healing(health);
+        _player.playerClass.Healing(health);
 
 
     }

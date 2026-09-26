@@ -24,11 +24,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private float _lastStamina;
     [SerializeField] private float HealthTimer=-1;
     [SerializeField] private float _lastHealth;
+    [SerializeField] private InputActionAsset _inputActions;
 
+    private void OnEnable()
+    {
+        _inputActions.FindActionMap("UI").Enable();
+        _inputActions.FindActionMap("Pause Menu").Enable();
+    }
     private void Start()
     {
        // Debug.Log("Start");
-        _lastHealth=_player.playerClass.PlayerGetHealth();
+        _lastHealth=_player.playerClass.GetHealth();
        // Debug.Log("Ultima Vida: "+_lastHealth);
         _lastStamina=_player.playerClass.GetStamina();
         //Debug.Log("Ultima Vida: " + _lastStamina);

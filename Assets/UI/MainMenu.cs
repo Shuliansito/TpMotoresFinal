@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
@@ -13,6 +14,7 @@ public class MainMenu : MonoBehaviour
         {
             Time.timeScale = 1.0f;
         }
+        InputSystem.ResetHaptics();
     }
 
     public void OnStartPressed()

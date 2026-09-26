@@ -327,7 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: f03d65b8f6b73eb4089de2f051321e48,
     type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -338,7 +338,99 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ccbff68b-056d-4952-b6dd-a9c37b574ea8
+    m_ActionName: MainMovement/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7201805d-9735-45f9-879b-0f76180f6e5a
+    m_ActionName: MainMovement/Run[/Keyboard/leftShift,/DualSenseGamepadHID/leftShoulder,/DualSenseGamepadHID/leftStickPress]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d562ff06-5d26-413f-ac2e-f12e11a6a6d4
+    m_ActionName: MainMovement/Look[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b437fcf6-7e3c-476a-936f-71a19d148943
+    m_ActionName: MainMovement/Interact[/Keyboard/e,/DualSenseGamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9b49ae4a-fb45-48f1-8d28-8058cc0a9fa2
+    m_ActionName: MainMovement/HurtPlayer[/Keyboard/o,/DualSenseGamepadHID/dpad/left]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a90b183c-169a-49e9-a103-368e763f3c95
+    m_ActionName: MainMovement/Shoot[/Mouse/leftButton,/DualSenseGamepadHID/rightTrigger,/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eca043a1-6135-4e4a-99dc-b8b4449b1f4d
+    m_ActionName: MainMovement/Healing[/DualSenseGamepadHID/dpad/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8609b7e0-e06e-4810-92d0-2257cf55aeac
+    m_ActionName: Pause Menu/Pause Menu[/Keyboard/escape,/DualSenseGamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 702e6ad2-9a48-4c90-afc9-30759ea24cb2
+    m_ActionName: Pause Menu/Pointer[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d4264884-ce83-421a-972c-b771154c05f6
+    m_ActionName: Pause Menu/Left Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 90024cbe-2081-499a-80c4-9a79b1886abd
+    m_ActionName: Pause Menu/Submit[/Keyboard/enter,/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 43af99a7-7bb4-4f12-a63d-ecd689b04888
+    m_ActionName: Pause Menu/Cancel[/Keyboard/escape,/DualSenseGamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cc454f91-783f-4b25-9009-050dc823ea2a
+    m_ActionName: UI/Navigate[/DualSenseGamepadHID/leftStick/up,/DualSenseGamepadHID/rightStick/up,/DualSenseGamepadHID/leftStick/down,/DualSenseGamepadHID/rightStick/down,/DualSenseGamepadHID/leftStick/left,/DualSenseGamepadHID/rightStick/left,/DualSenseGamepadHID/leftStick/right,/DualSenseGamepadHID/rightStick/right,/DualSenseGamepadHID/dpad,/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 380638f8-91d2-42d0-ba85-b899d9967988
+    m_ActionName: UI/Submit[/Keyboard/enter,/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 72ce3e28-70c4-4066-834b-1f6a651fe46e
+    m_ActionName: UI/Cancel[/Keyboard/escape,/DualSenseGamepadHID/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 531da568-84eb-4dc2-8112-17191139e807
+    m_ActionName: UI/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: aea235de-984a-412e-8694-9772c505caec
+    m_ActionName: UI/Click[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 40fc25c9-29f3-41ba-919f-efcbfa0df608
+    m_ActionName: UI/ScrollWheel[/Mouse/scroll]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e74f9d93-33be-4602-9c86-865689a8f12c
+    m_ActionName: UI/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 91c8d1b6-552a-44fd-a9b3-4c7161839203
+    m_ActionName: UI/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fcc2854b-e156-4cf5-9ce0-b43c4d01810c
+    m_ActionName: UI/TrackedDevicePosition
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f0d51aaa-c727-44c4-bc31-caad864b8a8c
+    m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 77556d7b-be76-4681-9f8f-d463c7bf8c12
+    m_ActionName: UI/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: MainMovement
@@ -372,6 +464,7 @@ MonoBehaviour:
   _interactCrosshair: {fileID: 0}
   _interacting: 0
   Hurt: {fileID: -3166733727582202532, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
+  Healing: {fileID: 477484261735190669, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
 --- !u!114 &7559371249186378012
 MonoBehaviour:
   m_ObjectHideFlags: 0
