@@ -64,6 +64,13 @@ public class PlayerClass
     //TODO: Mejorar el sistema de muerte a medida avanza el proyecto
     public void DetectDeath()
     {
-        if (health <= 0) { SceneManager.LoadScene(sceneName: "Main Menu"); Cursor.visible = true; Cursor.lockState = CursorLockMode.None; }
+        
+    }
+
+    public void ResetStats()
+    {
+        health = 100f;
+        _stamina = 100f;
+
     }
 }

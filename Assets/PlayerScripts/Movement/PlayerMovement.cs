@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PlayerClass player = new(5f, 100f);
+    public PlayerClass playerClass = new(5f, 100f);
 
     [Header("Player Stats")]
     public Rigidbody rb;
@@ -63,23 +63,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
-        PlayerStamina = player.GetStamina();
-        PlayerHealth = player.PlayerGetHealth();
+        PlayerStamina = playerClass.GetStamina();
+        PlayerHealth = playerClass.PlayerGetHealth();
 
     }
 
     private void Update()
     {
-        player.HealthLimit();
+        playerClass.HealthLimit();
 
         UpdatePlayerStats();
         MovementLogic();
         RunningLogic();
 
         
-        if (Hurt.action.WasPressedThisFrame()) { player.Hurt(10f); }
+        if (Hurt.action.WasPressedThisFrame()) { playerClass.Hurt(10f); }
 
-        player.DetectDeath();
+
     }
     void FixedUpdate()
     {
@@ -101,8 +101,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdatePlayerStats()
     {
-        PlayerHealth = player.PlayerGetHealth();
-        PlayerStamina = player.GetStamina();
+        PlayerHealth = playerClass.PlayerGetHealth();
+        PlayerStamina = playerClass.GetStamina();
     }
 
     private void RunningLogic()
@@ -113,41 +113,41 @@ public class PlayerMovement : MonoBehaviour
         {
             cam.fieldOfView = 63;
             _sprinting = true;
-            _movingSpeed = player.PlayerGetSpeed() * 1.5f;
+            _movingSpeed = playerClass.PlayerGetSpeed() * 1.5f;
         }
         else
         {
             cam.fieldOfView = 60;
             _sprinting = false;
-            _movingSpeed = player.PlayerGetSpeed();
+            _movingSpeed = playerClass.PlayerGetSpeed();
         }
 
         if (_sprinting)
         {
-            player.UpdateStamina(-10.0f * Time.deltaTime);
+            playerClass.UpdateStamina(-10.0f * Time.deltaTime);
             StaminaSlider.SetActive(true);
         }
 
         if (!_sprinting && !_ismoving)
         {
-            player.UpdateStamina(20.0f * Time.deltaTime);
+            playerClass.UpdateStamina(20.0f * Time.deltaTime);
         }
     }
 
     private void MovementLogic()
     {
-        _movingDirection = Move.action.ReadValue<Vector2>();
+        Vector2 keyboardInput = Move.action.ReadValue<Vector2>();
 
-        if (_movingDirection.x != 0 || _movingDirection.y != 0)
-        {
-            _ismoving = true;
-        }
-        else
-        {
-            _ismoving = false;
-        }
+        Vector2 stickInput = Vector2.zero;
+        if (Gamepad.current != null)
+            stickInput = Gamepad.current.leftStick.ReadValue();
+        
+        _movingDirection = keyboardInput + stickInput;
+        _movingDirection = Vector2.ClampMagnitude(_movingDirection, 1f);
+
+        _ismoving = _movingDirection.x != 0 || _movingDirection.y != 0;
     }
 
 
-    
+
 }

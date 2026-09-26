@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6cb4e5bfbbd8dd4fad23b6040749660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pauseMenu: {fileID: -6878356830828075970, guid: bb335c6e8d059e84392de45e1fc8fff5,
+  _pauseMenu: {fileID: -4832075751386480226, guid: bb335c6e8d059e84392de45e1fc8fff5,
     type: 3}
   pauseUI: {fileID: 0}
   HealthSliderGO: {fileID: 0}
@@ -110,6 +110,6 @@ MonoBehaviour:
     m_ActionName: Pause Menu/Pause Menu[/Keyboard/escape,/DualSenseGamepadHID/start]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: PauseMenu
+  m_DefaultActionMap: f8083f70-76ec-4e1f-bd6f-dc374c27bd52
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

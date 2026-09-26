@@ -28,9 +28,9 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
        // Debug.Log("Start");
-        _lastHealth=_player.player.PlayerGetHealth();
+        _lastHealth=_player.playerClass.PlayerGetHealth();
        // Debug.Log("Ultima Vida: "+_lastHealth);
-        _lastStamina=_player.player.GetStamina();
+        _lastStamina=_player.playerClass.GetStamina();
         //Debug.Log("Ultima Vida: " + _lastStamina);
 
        // Debug.Log("Termina el Start");
@@ -41,6 +41,7 @@ public class UIManager : MonoBehaviour
         //Pause menu check
         if (_pauseMenu.action.WasPressedThisFrame())
         {
+            Debug.Log("Escape/Home apretado");
             UpdateCursorState();
             pauseUI.SetActive(_isPaused);
         }
@@ -114,13 +115,19 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = _isPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = _isPaused;
         Time.timeScale = _isPaused ? 0.0f : 1.0f;
+        if (_isPaused)
+        {
+            UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
+        }
     }
 
     public void OnResume()
     {
+        _isPaused = false;
         pauseUI.SetActive(false);
         Time.timeScale = 1.0f;
-        UpdateCursorState();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void OnExit()
