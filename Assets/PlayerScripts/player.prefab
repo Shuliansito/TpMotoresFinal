@@ -431,6 +431,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 77556d7b-be76-4681-9f8f-d463c7bf8c12
     m_ActionName: UI/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7f76f3f2-2cd0-4ee5-b1b0-7ab68c89465b
+    m_ActionName: MainMovement/Crouch[/Keyboard/leftCtrl]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: MainMovement
@@ -456,6 +460,7 @@ MonoBehaviour:
   _ismoving: 0
   _sprinting: 0
   Move: {fileID: 5517269278262167545, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
+  Crouch: {fileID: 349299870417296643, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
   Run: {fileID: -1438112270190302986, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
   StaminaSlider: {fileID: 0}
   HealthSlider: {fileID: 0}

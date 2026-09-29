@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
         lst_consumables.Add(Instantiate(consumablePrefab, new Vector3(1.6f, 1.1f, 7.5f), Quaternion.identity));
         lst_consumables.Add(Instantiate(consumablePrefab, new Vector3(0.5f, 1.1f, 7.5f), Quaternion.identity));
 
-        lst_enemies.Add(Instantiate(enemyPrefab, new Vector3(6f, 1.1f, 1f), Quaternion.identity));
-        lst_enemies.Add(Instantiate(enemyPrefab, new Vector3(6f, 1.1f, 10f), Quaternion.identity));
+
     }
 }

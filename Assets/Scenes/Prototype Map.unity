@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18385652, g: 0.2290564, b: 0.30342498, a: 1}
+  m_IndirectSpecularColor: {r: 0.1838562, g: 0.22905603, b: 0.30342403, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -379,12 +379,42 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnExit
       objectReference: {fileID: 0}
+    - target: {fileID: 2944725335504207589, guid: e44450ac238fd04448d150f82691542f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746139289952582641, guid: e44450ac238fd04448d150f82691542f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746139289952582641, guid: e44450ac238fd04448d150f82691542f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4127591580839902508, guid: e44450ac238fd04448d150f82691542f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 35.599976
       objectReference: {fileID: 0}
+    - target: {fileID: 5521898307032650186, guid: e44450ac238fd04448d150f82691542f,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521898307032650186, guid: e44450ac238fd04448d150f82691542f,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6387463442587912682, guid: e44450ac238fd04448d150f82691542f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6804783069563859124, guid: e44450ac238fd04448d150f82691542f,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1599,6 +1629,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2588989496260239953, guid: 6e82ccede1df77a40bbae0d907c0fb78,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588989496260239953, guid: 6e82ccede1df77a40bbae0d907c0fb78,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2588989496260239953, guid: 6e82ccede1df77a40bbae0d907c0fb78,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2588989496260239953, guid: 6e82ccede1df77a40bbae0d907c0fb78,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -30,7 +31,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Tooltip("Detects if player is moving")]
+    [SerializeField] private float crouchTimer=0;
+
+    [Tooltip("Detects if player is moving")]
     [SerializeField] private bool _ismoving;
+
+    [Tooltip("Detects if player is crouching")]
+    [SerializeField] private bool _iscrouching;
 
 
     [Tooltip("Detects if player is sprinting")]
@@ -39,6 +46,9 @@ public class PlayerMovement : MonoBehaviour
 
     [Tooltip("Move input action")]
     public InputActionReference Move;
+
+    [Tooltip("Crouch input action")]
+    public InputActionReference Crouch;
 
 
     [Tooltip("Run input action")]
@@ -88,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         
         UpdatePlayerStats();
         MovementLogic();
+        CrouchLogic();
         RunningLogic();
 
         
@@ -128,6 +139,29 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerHealth = playerClass.GetHealth();
         PlayerStamina = playerClass.GetStamina();
+    }
+
+    private void CrouchLogic()
+    {
+        float crouchValue;
+        float crouchSizeValue;
+        
+
+        if (Crouch.action.WasPressedThisFrame()) {
+            _iscrouching = !_iscrouching;
+            if (_iscrouching)
+            {
+                crouchTimer = 200.0f;
+                Debug.Log(crouchTimer);
+            }
+        }
+
+        if (_iscrouching)
+        {
+            crouchTimer=-10.0f*Time.deltaTime;
+            crouchTimer= Mathf.Clamp(crouchTimer, 0.0f, 20.0f);
+        }
+        
     }
 
     
