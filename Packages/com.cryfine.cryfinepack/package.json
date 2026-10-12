@@ -1,0 +1,11 @@
+{
+  "name": "com.cryfine.cryfinepack",
+  "version": "0.0.1",
+  "displayName": "Cry-Fine Package",
+  "description": "Cryfine package made by Shuli",
+  "unity": "2022.3",
+  "author": {
+    "name": "Shuli",
+    "email": "cryfinestudios@gmail.com"
+  }
+}

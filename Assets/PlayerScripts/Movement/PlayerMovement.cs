@@ -1,17 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.Mathematics;
-using Unity.VisualScripting;
+//using ShuliLib;
+
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public PlayerClass playerClass = new(5f, 100f);
+    public PlayerClass playerClass = new(7f, 100f);
 
     [Header("Player Stats")]
     public Rigidbody rb;
@@ -26,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Tooltip("Movement speed")]
-    [Range(0f, 10f)]
+    [Range(0f, 20f)]
     [SerializeField] private float _movingSpeed;
 
 
@@ -74,14 +69,15 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake()
     {
-
-        InputSystem.FlushDisconnectedDevices();
-        GetComponent<PlayerInput>().defaultControlScheme = null;
+           
         PlayerStamina = playerClass.GetStamina();
         PlayerHealth = playerClass.GetHealth();
 
     }
+    private void Start()
+    {
 
+    }
     private void Update()
     {
 
@@ -89,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
         //  FIXED Error 13: When player was in pause menu, game logic was still running,
         //  so clicking the running input made the FOV change when that shouldn't happen    
         //                                                                                  
-        //  Solution: Having a condition that if time scale <= 0 skips all game logic       
+        //  Solution: Having a condition that if time scale <= 0, skips all game logic       
         //
         if (Time.timeScale <= 0) { return; }
 
@@ -140,31 +136,39 @@ public class PlayerMovement : MonoBehaviour
         PlayerHealth = playerClass.GetHealth();
         PlayerStamina = playerClass.GetStamina();
     }
-
+    /// <summary>
+    /// Handles the player's crouch state, toggling between crouching and standing based on input and cooldown timer.
+    /// </summary>
+    /// <remarks>This method adjusts the player's scale and movement speed when crouching or standing. It
+    /// enforces a cooldown period to prevent rapid toggling between states. Intended to be called within the player's
+    /// update loop to process crouch input each frame.</remarks>
     private void CrouchLogic()
     {
-        float crouchValue;
-        float crouchSizeValue;
-        
-
-        if (Crouch.action.WasPressedThisFrame()) {
+        if (Crouch.action.WasPressedThisFrame() && crouchTimer <= 0|| Crouch.action.WasPressedThisFrame() && _iscrouching)
+        {
             _iscrouching = !_iscrouching;
+
             if (_iscrouching)
             {
-                crouchTimer = 200.0f;
-                Debug.Log(crouchTimer);
+                transform.localScale = new Vector3(transform.localScale.x, 1.0f, transform.localScale.z);
+
+                transform.localPosition=new Vector3(transform.localPosition.x, transform.localPosition.y-0.8f, transform.localPosition.z);   
+                playerClass.SetSpeed((int)(playerClass.GetSpeed() / 2));
             }
+            else
+            {
+                transform.localScale = new Vector3(transform.localScale.x, 1.8f, transform.localScale.z);
+                playerClass.SetSpeed((int)(playerClass.GetSpeed() * 2));
+            }
+
+            crouchTimer = 10.0f;
         }
 
-        if (_iscrouching)
-        {
-            crouchTimer=-10.0f*Time.deltaTime;
-            crouchTimer= Mathf.Clamp(crouchTimer, 0.0f, 20.0f);
-        }
-        
+        crouchTimer -= 10.0f * Time.deltaTime;
+        crouchTimer = Mathf.Clamp(crouchTimer, 0.0f, 10.0f);
     }
 
-    
+
     /// <summary>
     /// Handle player running logic, changing the FOV and player speed when performing the action. 
     /// </summary>

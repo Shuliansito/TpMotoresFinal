@@ -22,6 +22,10 @@ public class PlayerClass
     {
         return speed;
     }
+    public void SetSpeed(int value)
+    {
+        this.speed=value;
+    }
     /// <summary>
     /// Gets the current health value/
     /// </summary>
