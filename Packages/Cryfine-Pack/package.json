@@ -1,0 +1,10 @@
+{
+  "name": "com.cryfine.utilities",
+  "version": "0.0.1",
+  "displayName": "Cry-Fine Package",
+  "description": "Cry-Fine Utilities",
+  "unity": "2022.3",
+  "author": {
+    "name": "CryFine"
+  }
+}

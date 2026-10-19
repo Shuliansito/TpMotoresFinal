@@ -1,16 +1,11 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.IO.LowLevel.Unsafe;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
+using Cryfine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Variables
     public PlayerClass playerClass = new(5f, 100f);
 
     [Header("Player Stats")]
@@ -28,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Movement speed")]
     [Range(0f, 10f)]
     [SerializeField] private float _movingSpeed;
+    [SerializeField] private float _smoothing = 10f;
 
 
     [Tooltip("Detects if player is moving")]
@@ -71,7 +67,10 @@ public class PlayerMovement : MonoBehaviour
     public InputActionReference Hurt;
     public InputActionReference Healing;
 
+    #endregion
 
+
+    public GameObject ManhatanTest;
     void Awake()
     {
 
@@ -80,10 +79,14 @@ public class PlayerMovement : MonoBehaviour
         PlayerStamina = playerClass.GetStamina();
         PlayerHealth = playerClass.GetHealth();
 
+        
+        
+        
     }
 
     private void Update()
     {
+
 
         //
         //  FIXED Error 13: When player was in pause menu, game logic was still running,
@@ -126,10 +129,12 @@ public class PlayerMovement : MonoBehaviour
             transform.right * _movingDirection.x +
             transform.forward * _movingDirection.y;
 
+        Vector3 current = rb.velocity;
+       
         rb.velocity = new Vector3(
-            direction.x * _movingSpeed,
-            rb.velocity.y,
-            direction.z * _movingSpeed
+            MathC.ExpDecay(current.x, direction.x * _movingSpeed, _smoothing, Time.fixedDeltaTime),
+            current.y,
+            MathC.ExpDecay(current.z, direction.z * _movingSpeed, _smoothing, Time.fixedDeltaTime)
         );
     }
     /// <summary>
@@ -143,8 +148,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CrouchLogic()
     {
-        float crouchValue;
-        float crouchSizeValue;
+
         
 
         if (Crouch.action.WasPressedThisFrame()) {

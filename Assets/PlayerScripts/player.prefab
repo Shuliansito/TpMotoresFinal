@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3209306220856246522}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.80000013, z: 0}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -457,7 +457,10 @@ MonoBehaviour:
   PlayerHealth: 0
   _movingDirection: {x: 0, y: 0}
   _movingSpeed: 0.03
+  _smoothing: 10
+  crouchTimer: 0
   _ismoving: 0
+  _iscrouching: 0
   _sprinting: 0
   Move: {fileID: 5517269278262167545, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
   Crouch: {fileID: 349299870417296643, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
@@ -470,6 +473,7 @@ MonoBehaviour:
   _interacting: 0
   Hurt: {fileID: -3166733727582202532, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
   Healing: {fileID: 477484261735190669, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
+  ManhatanTest: {fileID: 0}
 --- !u!114 &7559371249186378012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,7 +516,7 @@ Transform:
   m_GameObject: {fileID: 6862906040321686758}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0, y: 1.8, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
