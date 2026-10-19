@@ -7,7 +7,7 @@ public class PlayerClass
 {
     private float speed;
     private float health;
-    private float damage;
+    private float damage=0;
     private float _stamina = 100.0f;
     public PlayerClass(float speed, float health)
     {

@@ -1,0 +1,24 @@
+## [0.0.1] - 2026-10-19
+
+### Added
+- Distance functions in `MathC`:
+  - `DisMan2D`, `DisMan3D`: Manhattan distance between two points
+  - `DisSqr2D`, `DisSqr3D`: squared Euclidean distance (no square root, faster for comparing distances)
+  - `DisEuc2D`, `DisEuc3D`: Euclidean (straight-line) distance
+  - `DisCheb2D`, `DisCheb3D`: Chebyshev distance (largest difference on any axis)
+- Value functions in `MathC`:
+  - `Clamp`: restricts a value between a minimum and a maximum
+  - `Clamp01`: restricts a value between 0 and 1
+  - `Lerp`: linear interpolation between two values, with `t` clamped to 0-1
+  - `SmootherStep`: smooth 0-1 curve that eases in and out
+  - `ExpDecay`: frame-rate independent smoothing of a value toward a target
+  - `Wrap`: wraps an integer into the range [min, max)
+
+  ## [0.0.2] - 2026-10-19
+
+### Added
+- `DebugCF` class with debug helpers:
+  - `Distance2GameObjects`: logs the Manhattan distance between two GameObjects
+  - `IsAtDistance`: logs whether two GameObjects are within a given distance of each other
+  - `DrawDistance`: draws a line between two points in the Scene view
+  - `DrawDistanceLabel`: draws a line between two points with its distance as a label (Editor only)

@@ -1,7 +1,7 @@
 {
   "dependencies": {
-    "com.cryfine.cryfinepack": {
-      "version": "file:com.cryfine.cryfinepack",
+    "com.cryfine.utilities": {
+      "version": "file:Cryfine-Pack",
       "depth": 0,
       "source": "embedded",
       "dependencies": {}
