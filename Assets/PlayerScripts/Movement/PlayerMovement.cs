@@ -81,11 +81,13 @@ public class PlayerMovement : MonoBehaviour
         PlayerStamina = playerClass.GetStamina();
         PlayerHealth = playerClass.GetHealth();
     }
+    private void OnDrawGizmos()
+    {
 
+        
+    }
     private void Update()
     {
-        //DebugC.IsAtDistance(gameObject, ManhatanTest, 10);
-        DebugCF.DrawDistance(transform.position, ManhatanTest.transform.position, Color.red);
         
 
         if (Time.timeScale <= 0) { return; }

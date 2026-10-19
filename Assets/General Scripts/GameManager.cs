@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     public void StartGame(int level)
     {
         //Starting
-        player.transform.position = new Vector3(0f, 1.8f, 0f);
+        player.transform.position = new Vector3(-21f, 3f, -13f);
 
         foreach(GameObject item in lst_consumables)
         {
@@ -55,8 +55,8 @@ public class GameManager : MonoBehaviour
 
         lst_consumables.Add(Instantiate(consumablePrefab, new Vector3(1.6f, 1.1f, 7.5f), Quaternion.identity));
         lst_consumables.Add(Instantiate(consumablePrefab, new Vector3(0.5f, 1.1f, 7.5f), Quaternion.identity));
-       //lst_enemies.Add(Instantiate(enemyPrefab, new Vector3(5f, 1.1f, 9f), Quaternion.identity));
-        //lst_enemies.Add(Instantiate(enemyPrefab, new Vector3(5f, 1.1f, 5f), Quaternion.identity));
+        lst_enemies.Add(Instantiate(enemyPrefab, new Vector3(5f, 1.1f, 9f), Quaternion.identity));
+        lst_enemies.Add(Instantiate(enemyPrefab, new Vector3(5f, 1.1f, 5f), Quaternion.identity));
 
 
     }

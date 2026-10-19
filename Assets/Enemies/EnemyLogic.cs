@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cryfine;
+using CryFine;
 using UnityEngine;
 
 public class EnemyLogic : MonoBehaviour
 {
 
-    private GameObject m_player;
+    [SerializeField]private GameObject m_player;
     private GameObject m_GameManager;
     private Rigidbody m_rigidbody;
     public float rapidez = 5;
@@ -17,10 +18,15 @@ public class EnemyLogic : MonoBehaviour
     {
         detectionRange = Random.Range(5, 15);
         m_GameManager = GameObject.Find("Game Manager");
-        m_player = GameObject.Find("player");
+        if(m_player==null) m_player = GameObject.Find("player");
         m_rigidbody = GetComponent<Rigidbody>();
     }
-
+    private void OnDrawGizmos()
+    {
+        UtilityCF.DrawLabel(UtilityCF.GetCenter(transform) + new Vector3(0f, 1.5f, 0f), gameObject.name + "\n" + transform.position, Color.white);
+        
+        UtilityCF.DrawRangeSphere(UtilityCF.GetCenter(transform), detectionRange, Color.red,false);
+    }
     private void Update()
     {
         playerIsOnRange = (
