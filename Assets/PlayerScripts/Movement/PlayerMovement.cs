@@ -1,6 +1,7 @@
+using Cryfine;
+using CryFine;
 using System;
 using UnityEngine;
-using Cryfine;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
@@ -79,22 +80,14 @@ public class PlayerMovement : MonoBehaviour
         GetComponent<PlayerInput>().defaultControlScheme = null;
         PlayerStamina = playerClass.GetStamina();
         PlayerHealth = playerClass.GetHealth();
-
-        
-        
-        
     }
 
     private void Update()
     {
-        DebugC.IsAtDistance(gameObject, ManhatanTest, 10);
+        //DebugC.IsAtDistance(gameObject, ManhatanTest, 10);
+        DebugCF.DrawDistance(transform.position, ManhatanTest.transform.position, Color.red);
+        
 
-        //
-        //  FIXED Error 13: When player was in pause menu, game logic was still running,
-        //  so clicking the running input made the FOV change when that shouldn't happen    
-        //                                                                                  
-        //  Solution: Having a condition that if time scale <= 0 skips all game logic       
-        //
         if (Time.timeScale <= 0) { return; }
 
         playerClass.HealthLimit();
@@ -108,22 +101,11 @@ public class PlayerMovement : MonoBehaviour
         
         if (Hurt.action.WasPressedThisFrame()) { playerClass.Hurt(10f); }
         if (Healing.action.WasPressedThisFrame()) { playerClass.Healing(10f); }
-
-
     }
     void FixedUpdate()
     {
         MovePlayer();
     }
-
-
-    /// <summary>
-    /// Updates the player's velocity based on the current movement direction and speed.
-    /// </summary>
-    /// <remarks>This method applies movement to the player by setting the Rigidbody's velocity according to
-    /// the movement direction and speed. It should be called within the physics update loop (e.g., FixedUpdate) to
-    /// ensure consistent movement behavior. The vertical velocity is preserved, allowing for gravity and
-    /// jumping to function as expected.</remarks>
     private void MovePlayer()
     {
         Vector3 direction =
@@ -133,14 +115,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 current = rb.velocity;
        
         rb.velocity = new Vector3(
-            MathC.ExpDecay(current.x, direction.x * _movingSpeed, _smoothing, Time.fixedDeltaTime),
+            MathCF.ExpDecay(current.x, direction.x * _movingSpeed, _smoothing, Time.fixedDeltaTime),
             current.y,
-            MathC.ExpDecay(current.z, direction.z * _movingSpeed, _smoothing, Time.fixedDeltaTime)
+            MathCF.ExpDecay(current.z, direction.z * _movingSpeed, _smoothing, Time.fixedDeltaTime)
         );
     }
-    /// <summary>
-    /// Updates the player's health and stamina values based on the current state of the player class.
-    /// </summary>
     private void UpdatePlayerStats()
     {
         PlayerHealth = playerClass.GetHealth();
@@ -157,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
             if (_iscrouching)
             {
                 crouchTimer = 200.0f;
-                Debug.Log(crouchTimer);
+                //Debug.Log(crouchTimer);
             }
         }
 
@@ -169,12 +148,6 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
-    
-    /// <summary>
-    /// Handle player running logic, changing the FOV and player speed when performing the action. 
-    /// </summary>
-    /// <remarks>While Run input is pressed, player ain't moving and stamina is more than 0.5, player speed is boosted by 'runBoost' value, running boolean and stamina bar are
-    /// changed. Finally, Stamina is decreased by staminaWaste.</remarks>
     private void RunningLogic()
     {
         float runBoost=1.5f;
@@ -204,13 +177,6 @@ public class PlayerMovement : MonoBehaviour
             playerClass.UpdateStamina(staminaWaste * Time.deltaTime);
         }
     }
-    /// <summary>
-    /// Processes player movement input from both keyboard and gamepad, updating the current movement direction and
-    /// movement state.
-    /// </summary>
-    /// <remarks>This method combines input from the keyboard and the left stick of the current gamepad, if
-    /// available. The resulting movement direction is clamped to a maximum magnitude of 1 to ensure consistent movement
-    /// speed regardless of input strength. Intended to be called as part of the player movement update cycle.</remarks>
     private void MovementLogic()
     {
         Vector2 keyboardInput = Move.action.ReadValue<Vector2>();

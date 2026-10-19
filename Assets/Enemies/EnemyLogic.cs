@@ -24,7 +24,7 @@ public class EnemyLogic : MonoBehaviour
     private void Update()
     {
         playerIsOnRange = (
-            MathC.DisSqr3D(
+            MathCF.DisSqr3D(
             transform.position.x, transform.position.y, transform.position.z,
             m_player.transform.position.x, m_player.transform.position.y, m_player.transform.position.z)
             < detectionRange * detectionRange);

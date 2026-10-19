@@ -2,9 +2,8 @@ using System;
 
 namespace Cryfine
 {
-    public static class MathC
+    public static class MathCF
     {
-        #region Distances
         public static float DisMan3D(float x1, float y1, float z1, float x2, float y2, float z2) 
         { 
             return Math.Abs(x1 - x2) + Math.Abs(y1 - y2) + Math.Abs(z1 - z2); 
@@ -37,7 +36,6 @@ namespace Cryfine
         {
             return Math.Max(Math.Abs(x1 - x2), Math.Max(Math.Abs(y1 - y2), Math.Abs(z1 - z2))); 
         }
-        #endregion
         public static float Clamp(float value, float min, float max)
         {
             return value < min ? min : (value > max ? max : value); 
