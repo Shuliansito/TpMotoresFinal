@@ -5,8 +5,6 @@ namespace Cryfine
     public static class MathC
     {
         #region Distances
-        //Distance Manhattan
-
         public static float DisMan3D(float x1, float y1, float z1, float x2, float y2, float z2) 
         { 
             return Math.Abs(x1 - x2) + Math.Abs(y1 - y2) + Math.Abs(z1 - z2); 
@@ -15,9 +13,6 @@ namespace Cryfine
         {
             return Math.Abs(x1 - x2) + Math.Abs(y1 - y2); 
         }
-
-        //Distance Squared
-
         public static float DisSqr2D(float x1, float y1, float x2, float y2)
         {
             float dx = x1 - x2, dy = y1 - y2; return dx * dx + dy * dy; 
@@ -26,9 +21,6 @@ namespace Cryfine
         {
             float dx = x1 - x2, dy = y1 - y2, dz = z1 - z2; return dx * dx + dy * dy + dz * dz;
         }
-
-        //Distance Euclidienne
-
         public static float DisEuc2D(float x1, float y1, float x2, float y2)
         {
             return (float)Math.Sqrt(DisSqr2D(x1, y1, x2, y2));
@@ -37,9 +29,6 @@ namespace Cryfine
         {
             return (float)Math.Sqrt(DisSqr3D(x1, y1, z1, x2, y2, z2)); 
         }
-
-        //Distance Chebyshev
-
         public static float DisCheb2D(float x1, float y1, float x2, float y2)
         {
             return Math.Max(Math.Abs(x1 - x2), Math.Abs(y1 - y2));
@@ -48,10 +37,7 @@ namespace Cryfine
         {
             return Math.Max(Math.Abs(x1 - x2), Math.Max(Math.Abs(y1 - y2), Math.Abs(z1 - z2))); 
         }
-
         #endregion
-
-        //Ranges 
         public static float Clamp(float value, float min, float max)
         {
             return value < min ? min : (value > max ? max : value); 

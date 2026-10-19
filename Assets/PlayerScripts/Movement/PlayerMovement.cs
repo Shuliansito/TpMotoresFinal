@@ -71,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     public GameObject ManhatanTest;
+    public GameObject player;
     void Awake()
     {
 
@@ -86,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-
+        DebugC.IsAtDistance(gameObject, ManhatanTest, 10);
 
         //
         //  FIXED Error 13: When player was in pause menu, game logic was still running,

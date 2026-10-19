@@ -474,6 +474,7 @@ MonoBehaviour:
   Hurt: {fileID: -3166733727582202532, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
   Healing: {fileID: 477484261735190669, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
   ManhatanTest: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &7559371249186378012
 MonoBehaviour:
   m_ObjectHideFlags: 0
