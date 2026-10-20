@@ -11,7 +11,7 @@ public class EnemyLogic : MonoBehaviour
     private GameObject m_GameManager;
     private Rigidbody m_rigidbody;
     public float rapidez = 5;
-    [SerializeField] private int detectionRange;
+    [SerializeField] private int detectionRange=5;
     [SerializeField] private bool playerIsOnRange = false;
 
     private void Awake()
