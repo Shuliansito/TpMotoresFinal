@@ -16,7 +16,7 @@ public class EnemyLogic : MonoBehaviour
 
     private void Awake()
     {
-        detectionRange = Random.Range(5, 15);
+        detectionRange = Random.Range(5, 10);
         m_GameManager = GameObject.Find("Game Manager");
         if(m_player==null) m_player = GameObject.Find("player");
         m_rigidbody = GetComponent<Rigidbody>();
