@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     public void StartGame(int level)
     {
         //Starting
-        player.transform.position = new Vector3(-21f, 3f, -13f);
+        player.transform.position = new Vector3(43f, 3f, 20f);
 
         foreach(GameObject item in lst_consumables)
         {

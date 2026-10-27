@@ -9,6 +9,7 @@ public class EnemyLogic : MonoBehaviour
     [SerializeField]private GameObject m_player;
     private GameObject m_GameManager;
     private Rigidbody m_rigidbody;
+    private Vector3 m_player_position;
     public float rapidez = 5;
     [SerializeField] private int detectionRange=5;
     [SerializeField] private bool playerIsOnRange = false;
@@ -19,11 +20,14 @@ public class EnemyLogic : MonoBehaviour
         m_GameManager = GameObject.Find("Game Manager");
         if(m_player==null) m_player = GameObject.Find("player");
         m_rigidbody = GetComponent<Rigidbody>();
+
     }
     private void OnDrawGizmos()
     {
         UtilityCF.DrawLabel(UtilityCF.GetCenter(transform) + new Vector3(0f, 1.5f, 0f), gameObject.name + "\n" + transform.position, Color.white);
-        
+        DebugCF.DrawDistanceLabel(UtilityCF.GetCenter(transform), m_player.transform.position, Color.magenta);
+
+
         UtilityCF.DrawRangeSphere(UtilityCF.GetCenter(transform), detectionRange, Color.red,false);
     }
     private void Update()
