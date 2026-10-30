@@ -1,5 +1,4 @@
-using UnityEngine;
-using CryFine;
+using UnityEngine;   
 namespace Cryfine
 { 
     public class AudioCF

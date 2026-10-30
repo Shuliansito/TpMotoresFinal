@@ -4,27 +4,27 @@ namespace Cryfine
 {
     public static class MathCF
     {
-        public static float DisMan3D(float x1, float y1, float z1, float x2, float y2, float z2) 
+        public static float DisMan3D (float x1, float y1, float z1, float x2, float y2, float z2) 
         { 
             return Math.Abs(x1 - x2) + Math.Abs(y1 - y2) + Math.Abs(z1 - z2); 
         }
-        public static float DisMan2D(float x1, float y1, float x2, float y2) 
+        public static float DisMan2D (float x1, float y1, float x2, float y2) 
         {
             return Math.Abs(x1 - x2) + Math.Abs(y1 - y2); 
         }
-        public static float DisSqr2D(float x1, float y1, float x2, float y2)
+        public static float DisSqr2D (float x1, float y1, float x2, float y2)
         {
             float dx = x1 - x2, dy = y1 - y2; return dx * dx + dy * dy; 
         }
-        public static float DisSqr3D(float x1, float y1, float z1, float x2, float y2, float z2)
+        public static float DisSqr3D (float x1, float y1, float z1, float x2, float y2, float z2)
         {
             float dx = x1 - x2, dy = y1 - y2, dz = z1 - z2; return dx * dx + dy * dy + dz * dz;
         }
-        public static float DisEuc2D(float x1, float y1, float x2, float y2)
+        public static float DisEuc2D (float x1, float y1, float x2, float y2)
         {
             return (float)Math.Sqrt(DisSqr2D(x1, y1, x2, y2));
         }
-        public static float DisEuc3D(float x1, float y1, float z1, float x2, float y2, float z2)
+        public static float DisEuc3D (float x1, float y1, float z1, float x2, float y2, float z2)
         {
             return (float)Math.Sqrt(DisSqr3D(x1, y1, z1, x2, y2, z2)); 
         }
@@ -35,6 +35,11 @@ namespace Cryfine
         public static float DisCheb3D(float x1, float y1, float z1, float x2, float y2, float z2)
         {
             return Math.Max(Math.Abs(x1 - x2), Math.Max(Math.Abs(y1 - y2), Math.Abs(z1 - z2))); 
+        }
+        public static float Clamp(int value, int min, int max)
+        {
+            return value < min ? min : (value > max ? max : value); 
+
         }
         public static float Clamp(float value, float min, float max)
         {

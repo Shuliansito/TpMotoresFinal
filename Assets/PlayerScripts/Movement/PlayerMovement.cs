@@ -12,10 +12,8 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public float PlayerStamina;
     public float PlayerHealth;
-    
-    
 
-    [Header ("Movement")]
+    [Header("Movement")]
     [Tooltip("Direction where the player is moving")]
     [SerializeField] private Vector2 _movingDirection;
 
@@ -27,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [Tooltip("Detects if player is moving")]
-    [SerializeField] private float crouchTimer=0;
+    [SerializeField] private float crouchTimer = 0;
 
     [Tooltip("Detects if player is moving")]
     [SerializeField] private bool _ismoving;
@@ -46,13 +44,8 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Crouch input action")]
     public InputActionReference Crouch;
 
-
     [Tooltip("Run input action")]
     public InputActionReference Run;
-
-
-
-    
 
     [Header("UI References")]
 
@@ -69,9 +62,9 @@ public class PlayerMovement : MonoBehaviour
 
     #endregion
 
-
     public GameObject ManhatanTest;
     public GameObject player;
+
     void Awake()
     {
 
@@ -83,23 +76,23 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos()
     {
 
-        
+
     }
     private void Update()
     {
-        
+
 
         if (Time.timeScale <= 0) { return; }
 
         playerClass.HealthLimit();
-        
-        
+
+
         UpdatePlayerStats();
         MovementLogic();
-        CrouchLogic();
+        CrouchHandle();
         RunningLogic();
 
-        
+
         if (Hurt.action.WasPressedThisFrame()) { playerClass.Hurt(10f); }
         if (Healing.action.WasPressedThisFrame()) { playerClass.Healing(10f); }
     }
@@ -114,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
             transform.forward * _movingDirection.y;
 
         Vector3 current = rb.velocity;
-       
+        
         rb.velocity = new Vector3(
             MathCF.ExpDecay(current.x, direction.x * _movingSpeed, _smoothing, Time.fixedDeltaTime),
             current.y,
@@ -126,13 +119,13 @@ public class PlayerMovement : MonoBehaviour
         PlayerHealth = playerClass.GetHealth();
         PlayerStamina = playerClass.GetStamina();
     }
-
-    private void CrouchLogic()
+    private void CrouchHandle()
     {
 
-        
 
-        if (Crouch.action.WasPressedThisFrame()) {
+
+        if (Crouch.action.WasPressedThisFrame())
+        {
             _iscrouching = !_iscrouching;
             if (_iscrouching)
             {
@@ -143,16 +136,15 @@ public class PlayerMovement : MonoBehaviour
 
         if (_iscrouching)
         {
-            crouchTimer=-10.0f*Time.deltaTime;
-            crouchTimer= Mathf.Clamp(crouchTimer, 0.0f, 20.0f);
+            crouchTimer = -10.0f * Time.deltaTime;
+            crouchTimer = Mathf.Clamp(crouchTimer, 0.0f, 20.0f);
         }
-        
-    }
 
+    }
     private void RunningLogic()
     {
-        float runBoost=1.5f;
-        float staminaWaste=20f;
+        float runBoost = 1.5f;
+        float staminaWaste = 20f;
 
         if (Run.action.IsPressed() && _ismoving && PlayerStamina > 0.5)
         {
@@ -185,13 +177,10 @@ public class PlayerMovement : MonoBehaviour
         Vector2 stickInput = Vector2.zero;
         if (Gamepad.current != null)
             stickInput = Gamepad.current.leftStick.ReadValue();
-        
+
         _movingDirection = keyboardInput + stickInput;
         _movingDirection = Vector2.ClampMagnitude(_movingDirection, 1f);
 
         _ismoving = _movingDirection.x != 0 || _movingDirection.y != 0;
     }
-
-
-
 }
