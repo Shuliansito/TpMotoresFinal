@@ -50,7 +50,7 @@ public class UIManager : MonoBehaviour
         //Pause menu check
         if (_pauseMenu.action.WasPressedThisFrame())
         {
-            Debug.Log("Escape/Home apretado");
+            UnityEngine.Debug.Log("Escape/Home apretado");
             UpdateCursorState();
             pauseUI.SetActive(_isPaused);
         }
