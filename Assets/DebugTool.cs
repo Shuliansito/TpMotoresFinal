@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DebugTool : MonoBehaviour
 {
@@ -8,15 +9,15 @@ public class DebugTool : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F5))
+        if (Keyboard.current.f4Key.wasPressedThisFrame)
         {
             transform.position = _spawnPoints.spawnPoint[0];
         }
-        if (Input.GetKeyDown(KeyCode.F6))
+        if (Keyboard.current.f5Key.wasPressedThisFrame)
         {
             transform.position = _spawnPoints.spawnPoint[1];
         }
-        if (Input.GetKeyDown(KeyCode.F7))
+        if (Keyboard.current.f6Key.wasPressedThisFrame)
         {
             transform.position = _spawnPoints.spawnPoint[2];
         }

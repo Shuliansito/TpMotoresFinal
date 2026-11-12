@@ -162,8 +162,9 @@ public class PlayerMovement : MonoBehaviour
             playerClass.UpdateStamina(-10.0f * Time.deltaTime);
             StaminaSlider.SetActive(true);
         }
-
-        if (!_sprinting && !_ismoving)
+        if(!_sprinting&&_ismoving)
+            playerClass.UpdateStamina(staminaWaste/2 * Time.deltaTime);
+        else if (!_sprinting)
             playerClass.UpdateStamina(staminaWaste * Time.deltaTime);
     }
     private void MovementLogic()
