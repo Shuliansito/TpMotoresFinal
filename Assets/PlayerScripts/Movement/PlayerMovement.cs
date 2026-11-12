@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     public Rigidbody rb;
     public float PlayerStamina;
     public float PlayerHealth;
+    [SerializeField] public bool canRun=false;
 
     [Header("Movement")]
     [Tooltip("Direction where the player is moving")]
@@ -121,9 +122,6 @@ public class PlayerMovement : MonoBehaviour
     }
     private void CrouchHandle()
     {
-
-
-
         if (Crouch.action.WasPressedThisFrame())
         {
             _iscrouching = !_iscrouching;
@@ -146,17 +144,17 @@ public class PlayerMovement : MonoBehaviour
         float runBoost = 1.5f;
         float staminaWaste = 20f;
 
-        if (Run.action.IsPressed() && _ismoving && PlayerStamina > 0.5)
+        if (Run.action.IsPressed() && _ismoving && PlayerStamina > 0.5f && canRun)
         {
             cam.fieldOfView = 63;
             _sprinting = true;
-            _movingSpeed = playerClass.GetSpeed() * runBoost;
+            IncreasePlayerMovement(runBoost);
         }
         else
         {
             cam.fieldOfView = 60;
             _sprinting = false;
-            _movingSpeed = playerClass.GetSpeed();
+            ResetPlayerMovement();
         }
 
         if (_sprinting)
@@ -166,9 +164,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (!_sprinting && !_ismoving)
-        {
             playerClass.UpdateStamina(staminaWaste * Time.deltaTime);
-        }
     }
     private void MovementLogic()
     {
@@ -182,5 +178,18 @@ public class PlayerMovement : MonoBehaviour
         _movingDirection = Vector2.ClampMagnitude(_movingDirection, 1f);
 
         _ismoving = _movingDirection.x != 0 || _movingDirection.y != 0;
+    }
+    public void IncreasePlayerMovement(float amount)
+    {
+        _movingSpeed = playerClass.GetSpeed() * amount;
+    }
+
+    public void DecreasePlayerMovement(float amount)
+    {
+        _movingSpeed = playerClass.GetSpeed() / amount;
+    }
+    public void ResetPlayerMovement()
+    {
+        _movingSpeed = playerClass.GetSpeed();
     }
 }

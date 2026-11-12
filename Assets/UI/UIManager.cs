@@ -9,6 +9,7 @@ using ColorUtility = UnityEngine.ColorUtility;
 
 public class UIManager : MonoBehaviour
 {
+    [SerializeField] private GameObject _playerGO;
     public InputActionReference _pauseMenu;
     private bool _isPaused;
     public GameObject pauseUI;
@@ -18,6 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image _staminaFill;
     public Slider _staminaSlider;
     public Slider _healthSlider;
+
+    [SerializeField] private Image _underWaterImage;
 
 
     [SerializeField] private float StaminaTimer=-1;

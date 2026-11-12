@@ -308,6 +308,7 @@ GameObject:
   - component: {fileID: 5281687581985351807}
   - component: {fileID: 6511168504984280658}
   - component: {fileID: 7559371249186378012}
+  - component: {fileID: 2839998746950167664}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -601,7 +602,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5131256774964171801}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef15478b49797c647a5a9562bd97735f, type: 3}
   m_Name: 
@@ -611,6 +612,18 @@ MonoBehaviour:
   Shoot: {fileID: 5383353988147675899, guid: f03d65b8f6b73eb4089de2f051321e48, type: 3}
   shootForce: 30
   cam: {fileID: 1280024811228318810}
+--- !u!114 &2839998746950167664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5131256774964171801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 280c432c7df6a2248ae6089e36b74506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6862906040321686758
 GameObject:
   m_ObjectHideFlags: 0
