@@ -65,11 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject ManhatanTest;
     public GameObject player;
-    private void Start()
-    {
-        AudioManager.instancia.ReproduceSound("forest_ambience");
-        
-    }
+
     void Awake()
     {
 
