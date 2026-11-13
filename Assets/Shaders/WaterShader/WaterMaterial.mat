@@ -29,20 +29,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude1: 0.252
-    - _Amplitude2: 0.045
+    - _Amplitude1: 0.1
+    - _Amplitude2: 0
     - _Amplitude3: 0.08
     - _FoamIntensity: 1
     - _FoamScale: 3
     - _Frequency1: 3
     - _Frequency2: 4.71
     - _Frequency3: 4
-    - _FresnelPower: 1.11
+    - _FresnelPower: 1.79
     - _SeaLevel: 0
     - _Speed1: 1
     - _Speed2: 3.79
     - _Speed3: 1.8
-    - _Transparency: 0.58
+    - _Transparency: 0.8
     m_Colors:
     - _DeepColor: {r: 0, g: 0, b: 0, a: 1}
     - _Direction1: {r: 1, g: 0, b: 0, a: 0}

@@ -23,7 +23,7 @@ public class PlayerShooting : MonoBehaviour
         //Debug.Log("Detecting Shooting");
         if (Shoot.action.WasPressedThisFrame())
         {
-            if (Gamepad.current == null) { Debug.Log("[Input system] Gamepad not detected"); }
+            if (Gamepad.current == null) { Debug.LogWarning("[Input system] Gamepad not detected"); }
             //Debug.Log("Start shooting");
             Ray ray = cam.ViewportPointToRay(new Vector3(.5f, .5f, 0));
 

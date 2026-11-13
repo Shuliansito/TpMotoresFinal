@@ -48,7 +48,7 @@ public class PlayerClass
     /// <param name="heal">The amount of health to restore. Must be a positive value to increase health.</param>
     public void Healing(float heal)
     {
-        if (heal < 0) { UnityEngine.Debug.LogWarning("[Healing Method] Healing parameter is lower than 0, heal: "+ heal); }
+        if (heal < 0) { Debug.LogWarning("[Healing Method] Healing parameter is lower than 0, heal: "+heal); }
         if (health > 0) { health += heal; }
     }
     /// <summary>
@@ -63,7 +63,7 @@ public class PlayerClass
         {
             health -= dm;
         }
-        else { UnityEngine.Debug.LogWarning("[Hurting Method] Damage parameter is lower than 0, dm: " + dm); }
+        else { Debug.LogWarning("[Hurting Method] Damage parameter is lower than 0, dm: " + dm); }
             health = Mathf.Clamp(health, 0.0f, 100.0f);
     }
     /// <summary>

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
 
@@ -142,14 +142,14 @@ namespace TMPro.Examples
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            UnityEngine.Debug.Log("OnPointerEnter()");
+            Debug.Log("OnPointerEnter()");
             m_isHoveringObject = true;
         }
 
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            UnityEngine.Debug.Log("OnPointerExit()");
+            Debug.Log("OnPointerExit()");
             m_isHoveringObject = false;
         }
 
