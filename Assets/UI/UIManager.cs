@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -9,45 +10,55 @@ using ColorUtility = UnityEngine.ColorUtility;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
+
     [SerializeField] private GameObject _playerGO;
     public InputActionReference _pauseMenu;
     private bool _isPaused;
     public GameObject pauseUI;
     public GameObject HealthSliderGO;
     public GameObject StaminaSliderGO;
+    public GameObject OxigenSliderGO;
     public PlayerMovement _player;
     [SerializeField] private Image _staminaFill;
     public Slider _staminaSlider;
     public Slider _healthSlider;
+    public Slider _oxigenSlider;
 
     [SerializeField] private Image _underWaterImage;
 
-
-    [SerializeField] private float StaminaTimer=-1;
+    [SerializeField] private float StaminaTimer = -1;
     [SerializeField] private float _lastStamina;
-    [SerializeField] private float HealthTimer=-1;
+    [SerializeField] private float HealthTimer = -1;
     [SerializeField] private float _lastHealth;
+    [SerializeField] private float OxigenTimer = -1;
+    [SerializeField] private float _lastOxigen;
+
     [SerializeField] private InputActionAsset _inputActions;
+
+    private UnderWater _underWater;
 
     private void OnEnable()
     {
         _inputActions.FindActionMap("UI").Enable();
         _inputActions.FindActionMap("Pause Menu").Enable();
     }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
-       // Debug.Log("Start");
-        _lastHealth=_player.playerClass.GetHealth();
-       // Debug.Log("Ultima Vida: "+_lastHealth);
-        _lastStamina=_player.playerClass.GetStamina();
-        //Debug.Log("Ultima Vida: " + _lastStamina);
-
-       // Debug.Log("Termina el Start");
+        _lastHealth = _player.playerClass.GetHealth();
+        _lastStamina = _player.playerClass.GetStamina();
+        _underWater = _player.GetComponent<UnderWater>();
+        _lastOxigen = _oxigenSlider.value;
     }
+
     private void Update()
     {
-
-        //Pause menu check
         if (_pauseMenu.action.WasPressedThisFrame())
         {
             UnityEngine.Debug.Log("Escape/Home apretado");
@@ -55,20 +66,17 @@ public class UIManager : MonoBehaviour
             pauseUI.SetActive(_isPaused);
         }
 
-        //Value of Health and Stamina sliders depending on player stats
         _staminaSlider.value = _player.PlayerStamina;
         _healthSlider.value = _player.PlayerHealth;
 
         #region Stamina
-        //Check if stamina changed
+
         if (_player.PlayerStamina != _lastStamina)
         {
-            //Debug.Log("Desigualdad Stamina: "+_player.PlayerStamina+" /-/ "+_lastStamina);
             StaminaTimer = 2.0f;
             StaminaSliderGO.SetActive(true);
         }
 
-        //Decrease stamina timer
         if (StaminaTimer > 0)
         {
             StaminaTimer -= Time.deltaTime;
@@ -78,17 +86,18 @@ public class UIManager : MonoBehaviour
             StaminaSliderGO.SetActive(false);
         }
 
-        
         _lastStamina = _player.PlayerStamina;
 
         #endregion
+
+        #region Health
+
         if (_player.PlayerHealth != _lastHealth)
         {
-           //Debug.Log("Desigualdad Vida: " + _player.PlayerHealth + " /-/ " + _lastHealth); 
             HealthTimer = 5.0f;
             HealthSliderGO.SetActive(true);
         }
-        
+
         if (HealthTimer > 0)
         {
             HealthTimer -= Time.deltaTime;
@@ -97,8 +106,35 @@ public class UIManager : MonoBehaviour
         {
             HealthSliderGO.SetActive(false);
         }
+
         _lastHealth = _player.PlayerHealth;
 
+        #endregion
+
+        #region Oxigen
+
+        if (_oxigenSlider.value != _lastOxigen)
+        {
+            OxigenTimer = 5.0f;
+            OxigenSliderGO.SetActive(true);
+        }
+
+        if (_underWater.IsUnderWater)
+        {
+            OxigenSliderGO.SetActive(true);
+        }
+        else if (OxigenTimer > 0)
+        {
+            OxigenTimer -= Time.deltaTime;
+        }
+        else
+        {
+            OxigenSliderGO.SetActive(false);
+        }
+
+        _lastOxigen = _oxigenSlider.value;
+
+        #endregion
 
         RectTransform staminaRect = StaminaSliderGO.GetComponent<RectTransform>();
 
@@ -124,6 +160,7 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = _isPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = _isPaused;
         Time.timeScale = _isPaused ? 0.0f : 1.0f;
+
         if (_isPaused)
         {
             UnityEngine.EventSystems.EventSystem.current.SetSelectedGameObject(null);
