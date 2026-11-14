@@ -51,10 +51,11 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        _lastOxigen = _oxigenSlider.value;
         _lastHealth = _player.playerClass.GetHealth();
         _lastStamina = _player.playerClass.GetStamina();
         _underWater = _player.GetComponent<UnderWater>();
-        _lastOxigen = _oxigenSlider.value;
+        
     }
 
     private void Update()

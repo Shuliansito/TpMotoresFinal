@@ -1,5 +1,6 @@
 using Cryfine;
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,23 +8,22 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variables
     public PlayerClass playerClass = new(5f, 100f);
+    
 
     [Header("Player Stats")]
     public Rigidbody rb;
     public float PlayerStamina;
     public float PlayerHealth;
-    [SerializeField] public bool canRun=false;
+    [SerializeField] public bool canRun = false;
 
     [Header("Movement")]
     [Tooltip("Direction where the player is moving")]
     [SerializeField] private Vector2 _movingDirection;
 
-
     [Tooltip("Movement speed")]
     [Range(0f, 10f)]
     [SerializeField] private float _movingSpeed;
     [SerializeField] private float _smoothing = 10f;
-
 
     [Tooltip("Detects if player is moving")]
     [SerializeField] private float crouchTimer = 0;
@@ -34,10 +34,20 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Detects if player is crouching")]
     [SerializeField] private bool _iscrouching;
 
-
     [Tooltip("Detects if player is sprinting")]
     [SerializeField] private bool _sprinting;
 
+    [Header("Footsteps")]
+    [Tooltip("Metros entre paso y paso caminando")]
+    [SerializeField] private float _walkStride = 2.5f;
+    [Tooltip("Metros entre paso y paso corriendo")]
+    [SerializeField] private float _runStride = 3f;
+    [Tooltip("Por debajo de esta velocidad no suenan pasos")]
+    [SerializeField] private float _minStepSpeed = 0.5f;
+    [SerializeField] private float _groundCheckDistance = 1.1f;
+    [SerializeField] private LayerMask _groundMask = ~0;
+    private float _stepDistance;
+    private bool _leftFoot;
 
     [Tooltip("Move input action")]
     public InputActionReference Move;
@@ -49,7 +59,6 @@ public class PlayerMovement : MonoBehaviour
     public InputActionReference Run;
 
     [Header("UI References")]
-
     public GameObject StaminaSlider;
     public GameObject HealthSlider;
     public Camera cam;
@@ -65,46 +74,45 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject ManhatanTest;
     public GameObject player;
+
     private void Start()
     {
-        AudioManager.instancia.ReproduceSound("forest_ambience");
-        
+
     }
+
     void Awake()
     {
-
         InputSystem.FlushDisconnectedDevices();
         GetComponent<PlayerInput>().defaultControlScheme = null;
         PlayerStamina = playerClass.GetStamina();
         PlayerHealth = playerClass.GetHealth();
     }
+
     private void OnDrawGizmos()
     {
-
-
     }
+
     private void Update()
     {
-
-
         if (Time.timeScale <= 0) { return; }
 
         playerClass.HealthLimit();
-
 
         UpdatePlayerStats();
         MovementLogic();
         CrouchHandle();
         RunningLogic();
-
+        FootstepsSoundLogic();
 
         if (Hurt.action.WasPressedThisFrame()) { playerClass.Hurt(10f); }
         if (Healing.action.WasPressedThisFrame()) { playerClass.Healing(10f); }
     }
+
     void FixedUpdate()
     {
         MovePlayer();
     }
+
     private void MovePlayer()
     {
         Vector3 direction =
@@ -112,18 +120,20 @@ public class PlayerMovement : MonoBehaviour
             transform.forward * _movingDirection.y;
 
         Vector3 current = rb.velocity;
-        
+
         rb.velocity = new Vector3(
             MathCF.ExpDecay(current.x, direction.x * _movingSpeed, _smoothing, Time.fixedDeltaTime),
             current.y,
             MathCF.ExpDecay(current.z, direction.z * _movingSpeed, _smoothing, Time.fixedDeltaTime)
         );
     }
+
     private void UpdatePlayerStats()
     {
         PlayerHealth = playerClass.GetHealth();
         PlayerStamina = playerClass.GetStamina();
     }
+
     private void CrouchHandle()
     {
         if (Crouch.action.WasPressedThisFrame())
@@ -141,8 +151,8 @@ public class PlayerMovement : MonoBehaviour
             crouchTimer = -10.0f * Time.deltaTime;
             crouchTimer = Mathf.Clamp(crouchTimer, 0.0f, 20.0f);
         }
-
     }
+
     private void RunningLogic()
     {
         float runBoost = 1.5f;
@@ -166,11 +176,12 @@ public class PlayerMovement : MonoBehaviour
             playerClass.UpdateStamina(-10.0f * Time.deltaTime);
             StaminaSlider.SetActive(true);
         }
-        if(!_sprinting&&_ismoving)
-            playerClass.UpdateStamina(staminaWaste/2 * Time.deltaTime);
+        if (!_sprinting && _ismoving)
+            playerClass.UpdateStamina(staminaWaste / 2 * Time.deltaTime);
         else if (!_sprinting)
             playerClass.UpdateStamina(staminaWaste * Time.deltaTime);
     }
+
     private void MovementLogic()
     {
         Vector2 keyboardInput = Move.action.ReadValue<Vector2>();
@@ -184,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
 
         _ismoving = _movingDirection.x != 0 || _movingDirection.y != 0;
     }
+
     public void IncreasePlayerMovement(float amount)
     {
         _movingSpeed = playerClass.GetSpeed() * amount;
@@ -193,8 +205,35 @@ public class PlayerMovement : MonoBehaviour
     {
         _movingSpeed = playerClass.GetSpeed() / amount;
     }
+
     public void ResetPlayerMovement()
     {
         _movingSpeed = playerClass.GetSpeed();
+    }
+
+    private bool IsGrounded() =>
+        Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance,
+                        _groundMask, QueryTriggerInteraction.Ignore);
+
+    private void FootstepsSoundLogic()
+    {
+        Vector3 vel = rb.velocity;
+        float horizontalSpeed = new Vector2(vel.x, vel.z).magnitude;
+        float stride = _sprinting ? _runStride : _walkStride;
+
+        if (horizontalSpeed < _minStepSpeed || !IsGrounded())
+        {
+            _stepDistance = stride * 0.5f; 
+            return;
+        }
+
+        _stepDistance += horizontalSpeed * Time.deltaTime;
+
+        if (_stepDistance >= stride)
+        {
+            _stepDistance -= stride;
+            AudioManager.instancia.ReproduceSound(_leftFoot ? "footsteps_1" : "footsteps_2");
+            _leftFoot = !_leftFoot;
+        }
     }
 }
