@@ -56,12 +56,12 @@ public class UnderWater : MonoBehaviour
         if (_isUnderWater)
         {
             AudioManager.instancia.ReproduceSound("under_water");
-            _playerMovement.DecreasePlayerMovement(_speedDebufUnderWater);
+            
         }
         else
         {
             AudioManager.instancia.PauseSound("under_water");
-            _playerMovement.ResetPlayerMovement();
+            
         }
 
         _playerMovement.canRun = !_isUnderWater;

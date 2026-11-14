@@ -98,6 +98,15 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""08902b84-94fc-42a2-a85c-3ee8eb1dcb81"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -307,6 +316,28 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ef94a7e-36da-4f17-af1b-b18a5397e4ba"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a764977e-c14e-44da-a67f-bedce20b8232"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1002,6 +1033,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_MainMovement_Shoot = m_MainMovement.FindAction("Shoot", throwIfNotFound: true);
         m_MainMovement_Healing = m_MainMovement.FindAction("Healing", throwIfNotFound: true);
         m_MainMovement_Crouch = m_MainMovement.FindAction("Crouch", throwIfNotFound: true);
+        m_MainMovement_Jump = m_MainMovement.FindAction("Jump", throwIfNotFound: true);
         // Pause Menu
         m_PauseMenu = asset.FindActionMap("Pause Menu", throwIfNotFound: true);
         m_PauseMenu_PauseMenu = m_PauseMenu.FindAction("Pause Menu", throwIfNotFound: true);
@@ -1091,6 +1123,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_MainMovement_Shoot;
     private readonly InputAction m_MainMovement_Healing;
     private readonly InputAction m_MainMovement_Crouch;
+    private readonly InputAction m_MainMovement_Jump;
     public struct MainMovementActions
     {
         private @PlayerInputs m_Wrapper;
@@ -1103,6 +1136,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @Shoot => m_Wrapper.m_MainMovement_Shoot;
         public InputAction @Healing => m_Wrapper.m_MainMovement_Healing;
         public InputAction @Crouch => m_Wrapper.m_MainMovement_Crouch;
+        public InputAction @Jump => m_Wrapper.m_MainMovement_Jump;
         public InputActionMap Get() { return m_Wrapper.m_MainMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1136,6 +1170,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
         }
 
         private void UnregisterCallbacks(IMainMovementActions instance)
@@ -1164,6 +1201,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
         }
 
         public void RemoveCallbacks(IMainMovementActions instance)
@@ -1395,6 +1435,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnHealing(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
     public interface IPauseMenuActions
     {
