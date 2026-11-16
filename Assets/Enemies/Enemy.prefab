@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _chaseSpeed: 3.5
-  _chaseRange: 15
+  _chaseRange: 35
   _attackRange: 1.5
   _attackDamage: 10
   _attackCooldown: 1.5

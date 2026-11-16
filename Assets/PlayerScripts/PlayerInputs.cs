@@ -64,27 +64,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""HurtPlayer"",
-                    ""type"": ""Button"",
-                    ""id"": ""9b49ae4a-fb45-48f1-8d28-8058cc0a9fa2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""a90b183c-169a-49e9-a103-368e763f3c95"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Healing"",
-                    ""type"": ""Button"",
-                    ""id"": ""eca043a1-6135-4e4a-99dc-b8b4449b1f4d"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -233,28 +215,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""04262836-fc80-42ed-874e-de9c06b1f13d"",
-                    ""path"": ""<Keyboard>/o"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""HurtPlayer"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d19a58a5-2cff-4047-bae4-1f64545200d2"",
-                    ""path"": ""<Gamepad>/dpad/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""HurtPlayer"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""ec6795af-b88d-4f52-9091-ee32d3a3cfcb"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -283,17 +243,6 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shoot"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""2766e9bc-10c9-486c-bc00-34cf37dd420c"",
-                    ""path"": ""<Gamepad>/dpad/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Healing"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1029,9 +978,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         m_MainMovement_Run = m_MainMovement.FindAction("Run", throwIfNotFound: true);
         m_MainMovement_Look = m_MainMovement.FindAction("Look", throwIfNotFound: true);
         m_MainMovement_Interact = m_MainMovement.FindAction("Interact", throwIfNotFound: true);
-        m_MainMovement_HurtPlayer = m_MainMovement.FindAction("HurtPlayer", throwIfNotFound: true);
         m_MainMovement_Shoot = m_MainMovement.FindAction("Shoot", throwIfNotFound: true);
-        m_MainMovement_Healing = m_MainMovement.FindAction("Healing", throwIfNotFound: true);
         m_MainMovement_Crouch = m_MainMovement.FindAction("Crouch", throwIfNotFound: true);
         m_MainMovement_Jump = m_MainMovement.FindAction("Jump", throwIfNotFound: true);
         // Pause Menu
@@ -1119,9 +1066,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_MainMovement_Run;
     private readonly InputAction m_MainMovement_Look;
     private readonly InputAction m_MainMovement_Interact;
-    private readonly InputAction m_MainMovement_HurtPlayer;
     private readonly InputAction m_MainMovement_Shoot;
-    private readonly InputAction m_MainMovement_Healing;
     private readonly InputAction m_MainMovement_Crouch;
     private readonly InputAction m_MainMovement_Jump;
     public struct MainMovementActions
@@ -1132,9 +1077,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         public InputAction @Run => m_Wrapper.m_MainMovement_Run;
         public InputAction @Look => m_Wrapper.m_MainMovement_Look;
         public InputAction @Interact => m_Wrapper.m_MainMovement_Interact;
-        public InputAction @HurtPlayer => m_Wrapper.m_MainMovement_HurtPlayer;
         public InputAction @Shoot => m_Wrapper.m_MainMovement_Shoot;
-        public InputAction @Healing => m_Wrapper.m_MainMovement_Healing;
         public InputAction @Crouch => m_Wrapper.m_MainMovement_Crouch;
         public InputAction @Jump => m_Wrapper.m_MainMovement_Jump;
         public InputActionMap Get() { return m_Wrapper.m_MainMovement; }
@@ -1158,15 +1101,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @HurtPlayer.started += instance.OnHurtPlayer;
-            @HurtPlayer.performed += instance.OnHurtPlayer;
-            @HurtPlayer.canceled += instance.OnHurtPlayer;
             @Shoot.started += instance.OnShoot;
             @Shoot.performed += instance.OnShoot;
             @Shoot.canceled += instance.OnShoot;
-            @Healing.started += instance.OnHealing;
-            @Healing.performed += instance.OnHealing;
-            @Healing.canceled += instance.OnHealing;
             @Crouch.started += instance.OnCrouch;
             @Crouch.performed += instance.OnCrouch;
             @Crouch.canceled += instance.OnCrouch;
@@ -1189,15 +1126,9 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @HurtPlayer.started -= instance.OnHurtPlayer;
-            @HurtPlayer.performed -= instance.OnHurtPlayer;
-            @HurtPlayer.canceled -= instance.OnHurtPlayer;
             @Shoot.started -= instance.OnShoot;
             @Shoot.performed -= instance.OnShoot;
             @Shoot.canceled -= instance.OnShoot;
-            @Healing.started -= instance.OnHealing;
-            @Healing.performed -= instance.OnHealing;
-            @Healing.canceled -= instance.OnHealing;
             @Crouch.started -= instance.OnCrouch;
             @Crouch.performed -= instance.OnCrouch;
             @Crouch.canceled -= instance.OnCrouch;
@@ -1431,9 +1362,7 @@ public partial class @PlayerInputs: IInputActionCollection2, IDisposable
         void OnRun(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnHurtPlayer(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
-        void OnHealing(InputAction.CallbackContext context);
         void OnCrouch(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
     }

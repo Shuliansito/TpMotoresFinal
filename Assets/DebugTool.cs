@@ -38,6 +38,7 @@ public class DebugTool : MonoBehaviour
         if (cycle == null) { return; }
 
         cycle.transform.Rotate(180f, 0f, 0f);
+        cycle._totalRotation += 180f;
     }
 
     void OnDrawGizmos()

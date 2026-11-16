@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -5,19 +6,27 @@ public class DayNightCycle : MonoBehaviour
 {
     public float _rotationScale = 2f;
 
+    [SerializeField] private GameObject _spawners;  
+    [SerializeField] private bool isNight;   
+    [SerializeField] private float day;
+    [SerializeField] private float _daysPassed;
+    [SerializeField] public int _currentDay = 1;
+    public float _totalRotation;
+
+
     [Header("Sun")]
-    [SerializeField] private float _dayIntensity = 1f;
-    [SerializeField] private float _nightIntensity = 0f;
+    [SerializeField] public float _dayIntensity = 1f;
+    [SerializeField] public float _nightIntensity = 0f;
 
     [Header("Ambient")]
-    [SerializeField] private Color _dayAmbient = new Color(0.6f, 0.6f, 0.6f);
-    [SerializeField] private Color _nightAmbient = new Color(0.08f, 0.1f, 0.2f);
+    [SerializeField] public Color _dayAmbient = new Color(0.6f, 0.6f, 0.6f);
+    [SerializeField] public Color _nightAmbient = new Color(0.08f, 0.1f, 0.2f);
 
     [Header("Fog")]
-    [SerializeField] private Color _dayFogColor = new Color(0.7f, 0.8f, 0.9f);
-    [SerializeField] private Color _nightFogColor = new Color(0.05f, 0.07f, 0.12f);
-    [SerializeField] private float _dayFogDensity = 0.005f;
-    [SerializeField] private float _nightFogDensity = 0.03f;
+    [SerializeField] public Color _dayFogColor = new Color(0.7f, 0.8f, 0.9f);
+    [SerializeField] public Color _nightFogColor = new Color(0.05f, 0.07f, 0.12f);
+    [SerializeField] public float _dayFogDensity = 0.005f;
+    [SerializeField] public float _nightFogDensity = 0.03f;
 
     private Light _sun;
 
@@ -31,14 +40,25 @@ public class DayNightCycle : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(_rotationScale * Time.deltaTime, 0, 0);
 
-        float day = Mathf.InverseLerp(-0.2f, 0.2f, -transform.forward.y);
+        float rotation = _rotationScale * Time.deltaTime;
+        transform.Rotate(rotation, 0, 0);
 
-        ZombieSpawner.IsNight = day < 0.5f;
+        _totalRotation += rotation;
+        _daysPassed = _totalRotation / 360f;
+        _currentDay = Mathf.FloorToInt(_daysPassed) + 1;
+
+        day = Mathf.InverseLerp(-0.2f, 0.2f, -transform.forward.y);
+
+        isNight = day < 0.5f;
+
+        ZombieSpawner.IsNight = isNight;
         _sun.intensity = Mathf.Lerp(_nightIntensity, _dayIntensity, day);
         RenderSettings.ambientLight = Color.Lerp(_nightAmbient, _dayAmbient, day);
         RenderSettings.fogColor = Color.Lerp(_nightFogColor, _dayFogColor, day);
         RenderSettings.fogDensity = Mathf.Lerp(_nightFogDensity, _dayFogDensity, day);
+
+        _spawners.SetActive(isNight);
+
     }
 }

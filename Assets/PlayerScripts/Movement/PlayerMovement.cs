@@ -107,9 +107,7 @@ public class PlayerMovement : MonoBehaviour
         RunningLogic();
         SpeedLogic();
         FootstepsSoundLogic();
-
-        if (Hurt.action.WasPressedThisFrame()) { playerClass.Hurt(10f); }
-        if (Healing.action.WasPressedThisFrame()) { playerClass.Healing(10f); }
+        Debug.Log(Time.timeScale);
     }
 
     void FixedUpdate()

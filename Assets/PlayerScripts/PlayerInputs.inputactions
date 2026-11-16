@@ -42,27 +42,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "HurtPlayer",
-                    "type": "Button",
-                    "id": "9b49ae4a-fb45-48f1-8d28-8058cc0a9fa2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Shoot",
                     "type": "Button",
                     "id": "a90b183c-169a-49e9-a103-368e763f3c95",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Healing",
-                    "type": "Button",
-                    "id": "eca043a1-6135-4e4a-99dc-b8b4449b1f4d",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -211,28 +193,6 @@
                 },
                 {
                     "name": "",
-                    "id": "04262836-fc80-42ed-874e-de9c06b1f13d",
-                    "path": "<Keyboard>/o",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "HurtPlayer",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d19a58a5-2cff-4047-bae4-1f64545200d2",
-                    "path": "<Gamepad>/dpad/left",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "HurtPlayer",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ec6795af-b88d-4f52-9091-ee32d3a3cfcb",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -261,17 +221,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2766e9bc-10c9-486c-bc00-34cf37dd420c",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Healing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

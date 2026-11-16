@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject _playerGO;
     public InputActionReference _pauseMenu;
-    private bool _isPaused;
+    public bool _isPaused;
     public GameObject pauseUI;
     public GameObject HealthSliderGO;
     public GameObject StaminaSliderGO;
@@ -161,6 +161,7 @@ public class UIManager : MonoBehaviour
         Cursor.lockState = _isPaused ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = _isPaused;
         Time.timeScale = _isPaused ? 0.0f : 1.0f;
+        Debug.Log(Time.timeScale);
 
         if (_isPaused)
         {
