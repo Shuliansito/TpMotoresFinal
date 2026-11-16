@@ -1,25 +1,125 @@
-using System.Collections;
-using System.Collections.Generic;
+using Cryfine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DebugTool : MonoBehaviour
 {
     SpawnPoints _spawnPoints = new SpawnPoints();
+    ZombieSpawner[] _spawners;
+
+    [SerializeField] private float _debugRange = 10f;
+    [SerializeField] private bool _showDistances;
+
+    void Start()
+    {
+        RefreshSpawners();
+    }
 
     void Update()
     {
-        if (Keyboard.current.f4Key.wasPressedThisFrame)
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null) { return; }
+
+        if (keyboard.f4Key.wasPressedThisFrame) { Teleport(0); }
+        if (keyboard.f5Key.wasPressedThisFrame) { Teleport(1); }
+        if (keyboard.f6Key.wasPressedThisFrame) { Teleport(2); }
+        if (keyboard.f7Key.wasPressedThisFrame) { ToggleDayNight(); }
+        if (keyboard.f8Key.wasPressedThisFrame) { SpawnAllNow(); }
+        if (keyboard.f9Key.wasPressedThisFrame) { KillAllZombies(); }
+        if (keyboard.f10Key.wasPressedThisFrame) { ToggleDistances(); }
+        if (keyboard.f11Key.wasPressedThisFrame) { LogNearestSpawner(); }
+
+        if (_showDistances) { DrawZombieLines(); }
+    }
+    void ToggleDayNight()
+    {
+        DayNightCycle cycle = FindObjectOfType<DayNightCycle>();
+
+        if (cycle == null) { return; }
+
+        cycle.transform.Rotate(180f, 0f, 0f);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!_showDistances || _spawners == null) { return; }
+
+        foreach (ZombieSpawner spawner in _spawners)
         {
-            transform.position = _spawnPoints.spawnPoint[0];
+            DebugCF.DrawDistanceLabel(transform.position, spawner.transform.position, Color.red);
         }
-        if (Keyboard.current.f5Key.wasPressedThisFrame)
+    }
+
+    void RefreshSpawners()
+    {
+        _spawners = FindObjectsOfType<ZombieSpawner>();
+    }
+
+    void Teleport(int index)
+    {
+        transform.position = _spawnPoints.spawnPoint[index];
+    }
+
+    void SpawnAllNow()
+    {
+        RefreshSpawners();
+
+        foreach (ZombieSpawner spawner in _spawners)
         {
-            transform.position = _spawnPoints.spawnPoint[1];
+            spawner.SpawnZombie();
         }
-        if (Keyboard.current.f6Key.wasPressedThisFrame)
+    }
+
+    void KillAllZombies()
+    {
+        RefreshSpawners();
+
+        foreach (ZombieSpawner spawner in _spawners)
         {
-            transform.position = _spawnPoints.spawnPoint[2];
+            spawner.KillAll();
         }
+    }
+
+    void ToggleDistances()
+    {
+        RefreshSpawners();
+        _showDistances = !_showDistances;
+    }
+
+    void DrawZombieLines()
+    {
+        foreach (ZombieSpawner spawner in _spawners)
+        {
+            foreach (Transform zombie in spawner.transform)
+            {
+                DebugCF.DrawDistance(transform.position, zombie.position, Color.yellow);
+            }
+        }
+    }
+
+    void LogNearestSpawner()
+    {
+        RefreshSpawners();
+
+        ZombieSpawner nearest = null;
+        float nearestSqrDistance = float.MaxValue;
+        Vector3 a = transform.position;
+
+        foreach (ZombieSpawner spawner in _spawners)
+        {
+            Vector3 b = spawner.transform.position;
+            float sqrDistance = MathCF.DisSqr3D(a.x, a.y, a.z, b.x, b.y, b.z);
+
+            if (sqrDistance < nearestSqrDistance)
+            {
+                nearestSqrDistance = sqrDistance;
+                nearest = spawner;
+            }
+        }
+
+        if (nearest == null) { return; }
+
+        DebugCF.Distance2GameObjects(gameObject, nearest.gameObject);
+        DebugCF.IsAtDistance(gameObject, nearest.gameObject, _debugRange);
     }
 }

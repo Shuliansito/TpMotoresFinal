@@ -19,7 +19,7 @@ public class JumpLogic : MonoBehaviour
     }
     private void Update()
     {
-        if (jumpInputAction.action.WasPressedThisFrame() && _playerMovement.IsGrounded()&&_playerMovement.PlayerStamina>=25)
+        if (jumpInputAction.action.WasPressedThisFrame() && _playerMovement.IsGrounded()&&_playerMovement.PlayerStamina>=25 )
         {
             float jumpSpeed = Mathf.Sqrt(_jumpHeight * -2f * Physics.gravity.y);
             rb.velocity = new Vector3(rb.velocity.x, jumpSpeed, rb.velocity.z);
