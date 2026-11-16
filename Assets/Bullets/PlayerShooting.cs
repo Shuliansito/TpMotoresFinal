@@ -1,50 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
+using Cryfine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerShooting : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject projectilPrefab;
-
-    [SerializeField]
-    private InputActionReference Shoot;
-
-    [SerializeField]
-    private int shootForce=15;
+    [SerializeField] private InputActionReference Shoot;
+    [SerializeField] private float _lightDuration = 0.2f;
+    [SerializeField] private GameObject _shootingLight;
+    [SerializeField] private float _damage = 25f;
+    [SerializeField] private float _range = 50f;
     public Camera cam;
 
     private void Update()
     {
         if (Time.timeScale == 0f) return;
         DetectarErrores();
-        //Debug.Log("Detecting Shooting");
+
         if (Shoot.action.WasPressedThisFrame())
         {
-            if (Gamepad.current == null) { Debug.Log("[Input system] Gamepad not detected"); }
-            //Debug.Log("Start shooting");
-            Ray ray = cam.ViewportPointToRay(new Vector3(.5f, .5f, 0));
-
-            GameObject pro;
-            pro = Instantiate(projectilPrefab, ray.origin, transform.rotation);
-            //Debug.Log("Projectil instantiated");
-            Rigidbody rb = pro.GetComponent<Rigidbody>();
-            //Debug.Log("Rigidbogy created");
-            rb.AddForce(cam.transform.forward * shootForce, ForceMode.Impulse);
-
-
-
-
-            Destroy(pro, 2);
+            ShootRay();
+            ShootingEffects();
         }
+    }
+
+    private void ShootRay()
+    {
+        Ray ray = cam.ViewportPointToRay(new Vector3(.5f, .5f, 0));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, _range))
+        {
+            DebugCF.DrawDistance(ray.origin, hit.point, Color.red, 1f);
+
+            ZombieHealth zombie = hit.collider.GetComponentInParent<ZombieHealth>();
+
+            if (zombie != null)
+            {
+                zombie.TakeDamage(_damage);
+            }
+        }
+        else
+        {
+            DebugCF.DrawDistance(ray.origin, ray.origin + ray.direction * _range, Color.yellow, 1f);
+        }
+    }
+
+
+    private void ShootingEffects()
+    {
+        AudioManager.instancia.ReproduceSound("shoot_fired");
+        _shootingLight.SetActive(true);
+        Invoke(nameof(HideLight), 0.1f);
+
+        
+    }
+
+    private void HideLight()
+    {
+        _shootingLight.SetActive(false);
     }
 
     private void DetectarErrores()
     {
         if (Shoot == null) { Debug.LogError("'Shoot' Input reference not found"); }
         if (cam == null) { Debug.LogError("'cam' Camera not found"); }
-        if (projectilPrefab == null) { Debug.LogError("'projectilPrefabl' Prefab not found"); }
     }
 }
