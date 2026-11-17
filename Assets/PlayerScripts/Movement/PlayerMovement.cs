@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Detects if player is sprinting")]
     [SerializeField] private bool _sprinting;
     [SerializeField] private float _staminaDrain = 10f;
+    [SerializeField] private float _staminaRecoverThreshold = 20f;
+    private bool _exhausted;
 
     [Header("Camera FOV")]
     [SerializeField] private float _walkFov = 60f;
@@ -176,7 +178,10 @@ public class PlayerMovement : MonoBehaviour
         float staminaDrain = 10f;
         float staminaRecover = 20f;
 
-        _sprinting = Run.action.IsPressed() && _ismoving && PlayerStamina > 0.5f && canRun;
+        if (PlayerStamina <= 0.5f) { _exhausted = true; }
+        if (PlayerStamina >= _staminaRecoverThreshold) { _exhausted = false; }
+
+        _sprinting = Run.action.IsPressed() && _ismoving && canRun && !_exhausted;
 
         float targetFov = _sprinting ? _runFov : _walkFov;
         cam.fieldOfView = MathCF.ExpDecay(cam.fieldOfView, targetFov, _fovSmoothing, Time.deltaTime);
