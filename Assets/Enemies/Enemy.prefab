@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7199a5ca7dd9bb8458cd04af3c63ccad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _chaseSpeed: 3.5
+  _chaseSpeed: 7
   _chaseRange: 35
   _attackRange: 1.5
   _attackDamage: 10

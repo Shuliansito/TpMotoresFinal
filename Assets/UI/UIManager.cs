@@ -12,6 +12,11 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager instance;
 
+    [Header("Inventory HUD")]
+    [SerializeField] private GameObject _shootingCrosshair;
+    [SerializeField] public bool _isUsingAGun;
+
+
     [SerializeField] private GameObject _playerGO;
     public InputActionReference _pauseMenu;
     public bool _isPaused;
@@ -60,6 +65,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        _shootingCrosshair.SetActive(_isUsingAGun);
         if (_pauseMenu.action.WasPressedThisFrame())
         {
             UnityEngine.Debug.Log("Escape/Home apretado");

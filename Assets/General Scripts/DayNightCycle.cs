@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -7,6 +8,7 @@ public class DayNightCycle : MonoBehaviour
     public float _rotationScale = 2f;
 
     [SerializeField] private GameObject _spawners;  
+    [SerializeField] private TextMeshProUGUI _dayCounter;  
     [SerializeField] private bool isNight;   
     [SerializeField] private float day;
     [SerializeField] private float _daysPassed;
@@ -47,6 +49,8 @@ public class DayNightCycle : MonoBehaviour
         _totalRotation += rotation;
         _daysPassed = _totalRotation / 360f;
         _currentDay = Mathf.FloorToInt(_daysPassed) + 1;
+
+        _dayCounter.text = "- DÍA "+_currentDay.ToString()+" -";
 
         day = Mathf.InverseLerp(-0.2f, 0.2f, -transform.forward.y);
 

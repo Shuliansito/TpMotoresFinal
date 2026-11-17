@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 public class InventoryItem
 {
     public string name;
+    public bool isGun;
     public GameObject item;
     public GameObject button;
     public bool unlocked;
@@ -55,6 +56,11 @@ public class InventoryScript : MonoBehaviour
         for (int i = 0; i < _items.Length; i++)
         {
             _items[i].item.SetActive(i == index);
+        }
+
+        if (UIManager.instance != null)
+        {
+            UIManager.instance._isUsingAGun = index >= 0 && _items[index].isGun;
         }
     }
 

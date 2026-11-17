@@ -107,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
         RunningLogic();
         SpeedLogic();
         FootstepsSoundLogic();
-        Debug.Log(Time.timeScale);
     }
 
     void FixedUpdate()
