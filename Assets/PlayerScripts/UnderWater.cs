@@ -48,6 +48,8 @@ public class UnderWater : MonoBehaviour
 
         UIManager.instance._oxigenSlider.value = _playerOxigen;
         _underWaterImage.SetActive(_isUnderWater);
+
+        if (_playerOxigen <=0.5f&& _playerOxigen >= 0f) { _playerMovement.playerClass.Hurt(20 * Time.deltaTime);  }
     }
 
     private void UpdateUnderWaterState()

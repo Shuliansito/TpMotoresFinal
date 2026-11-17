@@ -20,6 +20,7 @@ public class DebugTool : MonoBehaviour
         Keyboard keyboard = Keyboard.current;
         if (keyboard == null) { return; }
 
+        if (keyboard.f3Key.wasPressedThisFrame) { Teleport(3); }
         if (keyboard.f4Key.wasPressedThisFrame) { Teleport(0); }
         if (keyboard.f5Key.wasPressedThisFrame) { Teleport(1); }
         if (keyboard.f6Key.wasPressedThisFrame) { Teleport(2); }

@@ -1,6 +1,7 @@
 using Cryfine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -86,10 +87,8 @@ public class PlayerMovement : MonoBehaviour
     public InputActionReference Healing;
 
     #endregion
-
     public GameObject ManhatanTest;
     public GameObject player;
-
     void Awake()
     {
         InputSystem.FlushDisconnectedDevices();
@@ -97,7 +96,6 @@ public class PlayerMovement : MonoBehaviour
         PlayerStamina = playerClass.GetStamina();
         PlayerHealth = playerClass.GetHealth();
     }
-
     private void Update()
     {
         if (Time.timeScale <= 0) { return; }
@@ -110,13 +108,13 @@ public class PlayerMovement : MonoBehaviour
         RunningLogic();
         SpeedLogic();
         FootstepsSoundLogic();
-    }
 
+        if (PlayerHealth == 0) { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
+    }
     void FixedUpdate()
     {
         MovePlayer();
     }
-
     private void MovePlayer()
     {
         Vector3 direction =
@@ -136,13 +134,11 @@ public class PlayerMovement : MonoBehaviour
         _walkSpeed += amount;
         _runSpeed += amount;
     }
-
     private void UpdatePlayerStats()
     {
         PlayerHealth = playerClass.GetHealth();
         PlayerStamina = playerClass.GetStamina();
     }
-
     private void CrouchHandle()
     {
         if (Crouch.action.WasPressedThisFrame())
@@ -160,7 +156,6 @@ public class PlayerMovement : MonoBehaviour
             crouchTimer = Mathf.Clamp(crouchTimer, 0.0f, 20.0f);
         }
     }
-
     private void MovementLogic()
     {
         Vector2 keyboardInput = Move.action.ReadValue<Vector2>();
@@ -172,7 +167,6 @@ public class PlayerMovement : MonoBehaviour
         _movingDirection = Vector2.ClampMagnitude(keyboardInput + stickInput, 1f);
         _ismoving = _movingDirection != Vector2.zero;
     }
-
     private void RunningLogic()
     {
         float staminaRecover = 20f;
@@ -211,14 +205,11 @@ public class PlayerMovement : MonoBehaviour
         _maxActualSpeed = _sprinting ? _runSpeed : _walkSpeed;
         _movingSpeed = MathCF.ExpDecay(_movingSpeed, _maxActualSpeed, _acceleration, Time.deltaTime);
     }
-
     public bool IsGrounded()
     {
        return Physics.Raycast(transform.position, Vector3.down, _groundCheckDistance,
                         _groundMask, QueryTriggerInteraction.Ignore);
-    }
-        
-
+    }     
     private void FootstepsSoundLogic()
     {
         Vector3 vel = rb.velocity;
