@@ -18878,74 +18878,6 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
---- !u!1001 &1447806476
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 431.57358
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 8.614496
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 546.4732
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2470915096720291200, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2954823824624447290, guid: 194e9111af0c33840a49d573f2b26952,
-        type: 3}
-      propertyPath: m_Name
-      value: PP_Hyacinth_04
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 194e9111af0c33840a49d573f2b26952, type: 3}
 --- !u!1 &1462348634
 GameObject:
   m_ObjectHideFlags: 0
@@ -105918,7 +105850,7 @@ GameObject:
   - component: {fileID: 7559371249560890952}
   - component: {fileID: 7559371249560890953}
   m_Layer: 0
-  m_Name: d
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174013,7 +173945,6 @@ SceneRoots:
   - {fileID: 702839560}
   - {fileID: 1489034815}
   - {fileID: 1497174637}
-  - {fileID: 1447806476}
   - {fileID: 1021877749}
   - {fileID: 270997622}
   - {fileID: 1132674955}
