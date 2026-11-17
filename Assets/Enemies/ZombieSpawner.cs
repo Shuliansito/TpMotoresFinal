@@ -1,5 +1,4 @@
 using Cryfine;
-using CryFine;
 using UnityEngine;
 
 public class ZombieSpawner : MonoBehaviour
@@ -7,30 +6,24 @@ public class ZombieSpawner : MonoBehaviour
     public static bool IsNight;
 
     [SerializeField] private GameObject _zombiePrefab;
-    [SerializeField] private GameObject _player;
     [SerializeField] private float _spawnInterval = 5f;
-    [SerializeField] private float _spawnDistance = 15f;
     [SerializeField] private int _maxZombies = 5;
     [SerializeField] private float _spawnRadius = 2f;
+    [SerializeField] private float _activeRange = 30f;
 
+    private PlayerMovement _player;
     private float _timer;
-    private bool playerIsNear;
+
     public int ZombieCount => transform.childCount;
-    private void OnDrawGizmos()
+
+    private void Start()
     {
-        UtilityCF.DrawRangeSphere(UtilityCF.GetCenter(transform), _spawnDistance, Color.cyan);
+        _player = FindObjectOfType<PlayerMovement>();
     }
-    private void FixedUpdate()
-    {
-        Vector3 a = transform.position;
-        Vector3 b = _player.transform.position;
-        playerIsNear = MathCF.DisSqr3D(a.x, a.y, a.z, b.x, b.y, b.z) <= _spawnDistance * _spawnDistance;
-    }
+
     private void Update()
     {
-
-
-        if (!IsNight)
+        if (_player == null || !PlayerIsNear())
         {
             _timer = 0f;
             return;
@@ -40,11 +33,20 @@ public class ZombieSpawner : MonoBehaviour
 
         _timer += Time.deltaTime;
 
-        if (_timer >= _spawnInterval&&playerIsNear)
+        if (_timer >= _spawnInterval)
         {
             _timer = 0f;
             SpawnZombie();
         }
+    }
+
+    private bool PlayerIsNear()
+    {
+        Vector3 a = transform.position;
+        Vector3 b = _player.transform.position;
+        float sqrDistance = MathCF.DisSqr3D(a.x, a.y, a.z, b.x, b.y, b.z);
+
+        return sqrDistance <= _activeRange * _activeRange;
     }
 
     public void SpawnZombie()

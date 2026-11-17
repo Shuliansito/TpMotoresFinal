@@ -12,7 +12,6 @@ public class UnderWater : MonoBehaviour
     [SerializeField] private GameObject _underWaterImage;
     [SerializeField] private Camera _playerCamera;
     [SerializeField] private bool _isUnderWater = false;
-    [SerializeField] private float _speedDebufUnderWater = 2f;
     [SerializeField] private float _healDebufUnderWater = 15f;
     [SerializeField] private PlayerMovement _playerMovement;
     public float _waterLimitPosition;

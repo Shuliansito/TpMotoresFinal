@@ -175,7 +175,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void RunningLogic()
     {
-        float staminaDrain = 10f;
         float staminaRecover = 20f;
 
         if (PlayerStamina <= 0.5f) { _exhausted = true; }

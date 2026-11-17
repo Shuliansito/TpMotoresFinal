@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class PlayerShooting : MonoBehaviour
 {
     [SerializeField] private InputActionReference Shoot;
-    [SerializeField] private float _lightDuration = 0.2f;
     [SerializeField] private GameObject _shootingLight;
     [SerializeField] private float _damage = 25f;
     [SerializeField] private float _range = 50f;

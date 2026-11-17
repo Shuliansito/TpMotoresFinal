@@ -62,7 +62,6 @@ public class DayNightCycle : MonoBehaviour
         RenderSettings.fogColor = Color.Lerp(_nightFogColor, _dayFogColor, day);
         RenderSettings.fogDensity = Mathf.Lerp(_nightFogDensity, _dayFogDensity, day);
 
-        _spawners.SetActive(isNight);
-
+        
     }
 }

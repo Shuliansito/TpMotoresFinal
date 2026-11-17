@@ -33,12 +33,19 @@ public class InventoryScript : MonoBehaviour
         bool released = (keyboard != null && keyboard.tabKey.wasReleasedThisFrame)
                      || (gamepad != null && gamepad.dpad.left.wasReleasedThisFrame);
 
-        if (pressed && !UIManager.instance._isPaused) { OpenInventory(); }
+        if (pressed && !UIManager.instance._isPaused && !Temple.GameWon) { OpenInventory(); }
         if (released && isOnInventory) { CloseInventory(); }
     }
 
     public void SelectItem(int index)
     {
+        if (index == -1)
+        {
+            EquipItem(-1);
+            CloseInventory();
+            return;
+        }
+
         if (index < 0 || index >= _items.Length) { return; }
         if (!_items[index].unlocked) { return; }
 

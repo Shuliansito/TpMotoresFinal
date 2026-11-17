@@ -186,6 +186,6 @@ public class UIManager : MonoBehaviour
 
     public void OnExit()
     {
-        SceneManager.LoadScene(sceneName: "Main Menu");
+        SceneManager.LoadScene(sceneName: "MainMenu");
     }
 }
