@@ -6,8 +6,8 @@ public class SpawnPoints
 
     public SpawnPoints()
     {
-        spawnPoint.Add(new Vector3(478, 12, 810));
-        spawnPoint.Add(new Vector3(608, 10, 718));
-        spawnPoint.Add(new Vector3(208, 33, 214));
+        spawnPoint.Add(new Vector3(707, 20, 173));
+        spawnPoint.Add(new Vector3(194, 31, 213));
+        spawnPoint.Add(new Vector3(228, 45, 597));
     }
 }

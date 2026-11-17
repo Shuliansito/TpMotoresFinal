@@ -43,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Tooltip("Detects if player is sprinting")]
     [SerializeField] private bool _sprinting;
+    [SerializeField] private float _staminaDrain = 10f;
 
     [Header("Camera FOV")]
     [SerializeField] private float _walkFov = 60f;
@@ -128,6 +129,11 @@ public class PlayerMovement : MonoBehaviour
             MathCF.ExpDecay(current.z, direction.z * _movingSpeed, _smoothing, Time.fixedDeltaTime)
         );
     }
+    public void AddSpeed(float amount)
+    {
+        _walkSpeed += amount;
+        _runSpeed += amount;
+    }
 
     private void UpdatePlayerStats()
     {
@@ -177,7 +183,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (_sprinting)
         {
-            playerClass.UpdateStamina(-staminaDrain * Time.deltaTime);
+            playerClass.UpdateStamina(-_staminaDrain * Time.deltaTime);
             StaminaSlider.SetActive(true);
         }
         else if (_ismoving)
@@ -185,7 +191,10 @@ public class PlayerMovement : MonoBehaviour
         else
             playerClass.UpdateStamina(staminaRecover * Time.deltaTime);
     }
-
+    public void ReduceStaminaDrain(float percent)
+    {
+        _staminaDrain *= 1f - percent;
+    }
     private void SpeedLogic()
     {
         if (!_ismoving)

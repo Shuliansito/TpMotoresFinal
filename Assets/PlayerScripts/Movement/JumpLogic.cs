@@ -26,5 +26,8 @@ public class JumpLogic : MonoBehaviour
             _playerMovement.playerClass.UpdateStamina(-_energyWaste);
         }
     }
-
+    public void AddJump(float amount)
+    {
+        _jumpHeight *= amount;
+    }
 }

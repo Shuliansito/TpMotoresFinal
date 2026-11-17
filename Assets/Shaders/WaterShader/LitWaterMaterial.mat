@@ -51,7 +51,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Density: 600
+    - _GradientNoise: 5
+    - _GradientNoise_1: 5
+    - _OlasSpeed: 5
+    - _Power: 8
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    - _Speed: 5
+    - _WaterAlpha: 0.75
+    m_Colors:
+    - _VornoiColor: {r: 0.27058816, g: 0.5921568, b: 1, a: 0}
+    - _WaterColor: {r: 0.17647055, g: 0.36862746, b: 1, a: 0}
   m_BuildTextureStacks: []
